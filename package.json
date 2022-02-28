@@ -1,0 +1,25 @@
+{
+  "name": "js-financial-tools",
+  "version": "1.0.1",
+  "description": "javascript financial tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiracKeeko/js-financial-tools.git"
+  },
+  "keywords": [
+    "front-end",
+    "js",
+    "financial",
+    "tools"
+  ],
+  "author": "DiracKeeko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiracKeeko/js-financial-tools/issues"
+  },
+  "homepage": "https://github.com/DiracKeeko/js-financial-tools#readme"
+}
