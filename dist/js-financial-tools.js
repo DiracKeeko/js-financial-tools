@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@/calc/number')) :
-  typeof define === 'function' && define.amd ? define(['@/calc/number'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.JsFinancalTools = factory(global.number$1));
-})(this, (function (number$1) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.JsFinancalTools = factory());
+})(this, (function () { 'use strict';
 
   // 7.2.1 RequireObjectCoercible(argument)
   var _defined = function (it) {
@@ -1068,7 +1068,7 @@
     var number = val;
 
     if (str === "亿") {
-      number = number$1.float(number / Math.pow(10, 8));
+      number = _float(number / Math.pow(10, 8));
     }
 
     return "".concat(number).concat(str);

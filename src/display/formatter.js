@@ -1,4 +1,4 @@
-import { float } from '@/calc/number';
+import { float } from '../calc/number';
 
 function formatRank(val) {
   if (val === undefined) {
