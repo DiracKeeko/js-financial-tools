@@ -5,11 +5,10 @@ import { uglify } from 'rollup-plugin-uglify'
 import commonjs from '@rollup/plugin-commonjs'
 import eslint from '@rollup/plugin-eslint'
 
-
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
-  input: './index.js',
+  input: 'src/index.js',
   output: {
     file: isProduction ? 'dist/js-financal-tools.min.js' : 'dist/js-financial-tools.js',
     format: 'umd',
