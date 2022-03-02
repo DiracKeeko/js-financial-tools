@@ -4,6 +4,12 @@ import resolve from '@rollup/plugin-node-resolve'
 import { uglify } from 'rollup-plugin-uglify'
 import commonjs from '@rollup/plugin-commonjs'
 import eslint from '@rollup/plugin-eslint'
+import alias from '@rollup/plugin-alias';
+
+const path = require('path');
+function resolveDir(dir) {
+  return path.join(__dirname, dir);
+}
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -26,6 +32,11 @@ export default {
     commonjs(),
     filesize(),
     babel({ babelHelpers: 'runtime', exclude: ['node_modules/**'] }),
-    (isProduction && uglify())
+    alias({
+      entries: [
+        { find: '@', replacement: resolveDir('src') }
+      ]
+    }),
+    (isProduction && uglify()),
   ]
 }

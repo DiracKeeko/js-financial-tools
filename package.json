@@ -29,6 +29,7 @@
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "@rollup/plugin-alias": "^3.1.9",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-eslint": "^8.0.1",
@@ -37,5 +38,6 @@
     "rollup": "^2.68.0",
     "rollup-plugin-filesize": "^9.1.2",
     "rollup-plugin-uglify": "^6.0.4"
-  }
+  },
+  "dependencies": {}
 }
