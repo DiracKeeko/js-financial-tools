@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.JsFinancalTools = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.JsFinancialTools = factory());
 })(this, (function () { 'use strict';
 
   // 7.2.1 RequireObjectCoercible(argument)
@@ -1039,10 +1039,22 @@
     return num.toFixed(accuracy);
   }
 
+  function percentage(num, precision) {
+    var placeholder = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "--";
+    var accuracy = isRealNumber(precision) ? precision : 2;
+
+    if (!isRealNumber(num)) {
+      return placeholder;
+    }
+
+    return "".concat((num * 100).toFixed(accuracy), "%");
+  }
+
   var number = /*#__PURE__*/Object.freeze({
     __proto__: null,
     isRealNumber: isRealNumber,
-    float: _float
+    float: _float,
+    percentage: percentage
   });
 
   var calc = /*#__PURE__*/Object.freeze({
@@ -1051,7 +1063,7 @@
   });
 
   function formatRank(val) {
-    if (val === undefined) {
+    if (!isRealNumber(val)) {
       return "--";
     }
 
@@ -1059,25 +1071,70 @@
   }
 
   function formatWithUnit(val) {
-    var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var unitStr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
 
-    if (val === undefined) {
+    if (!isRealNumber(val)) {
       return "--";
     }
 
-    var number = val;
+    var num;
 
-    if (str === "亿") {
-      number = _float(number / Math.pow(10, 8));
+    switch (unitStr) {
+      case "万":
+        num = _float(val / Math.pow(10, 4), precision);
+        break;
+
+      case "亿":
+        num = _float(val / Math.pow(10, 8), precision);
+        break;
     }
 
-    return "".concat(number).concat(str);
+    return "".concat(num).concat(unitStr);
+  }
+
+  function formatToFloat(val) {
+    var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+    var radio = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+    if (!isRealNumber(val)) {
+      return "--";
+    }
+
+    var num = val / radio;
+
+    if (num > 0) {
+      return "".concat(plusSign).concat(_float(num, precision));
+    }
+
+    return _float(num, precision);
+  }
+
+  function formatToPercent(val) {
+    var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+    var radio = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+    if (!isRealNumber(val)) {
+      return "--";
+    }
+
+    var num = val / radio;
+
+    if (num > 0) {
+      return "".concat(plusSign).concat(percentage(num, precision));
+    }
+
+    return percentage(num, precision);
   }
 
   var formatter = /*#__PURE__*/Object.freeze({
     __proto__: null,
     formatRank: formatRank,
-    formatWithUnit: formatWithUnit
+    formatWithUnit: formatWithUnit,
+    formatToFloat: formatToFloat,
+    formatToPercent: formatToPercent
   });
 
   var display = /*#__PURE__*/Object.freeze({

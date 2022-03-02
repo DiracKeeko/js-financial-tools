@@ -10,4 +10,12 @@ function float(num, precision, placeholder = "--") {
   return num.toFixed(accuracy);
 }
 
-export { isRealNumber, float };
+function percentage(num, precision, placeholder = "--") {
+  const accuracy = isRealNumber(precision) ? precision : 2;
+  if (!isRealNumber(num)) {
+    return placeholder;
+  }
+  return `${(num * 100).toFixed(accuracy)}%`;
+}
+
+export { isRealNumber, float, percentage };

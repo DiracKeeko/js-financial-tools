@@ -1,6 +1,6 @@
 {
   "name": "js-financial-tools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "javascript financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
@@ -17,7 +17,10 @@
     "front-end",
     "js",
     "financial",
-    "tools"
+    "fund",
+    "stock",
+    "calc",
+    "display"
   ],
   "author": "DiracKeeko",
   "license": "ISC",
