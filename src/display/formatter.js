@@ -1,8 +1,8 @@
-import { float } from '@/calc/number';
+import { float } from "@/calc/number";
 
 function formatRank(val) {
   if (val === undefined) {
-    return "--"
+    return "--";
   }
   return `$No.${val}`;
 }
@@ -13,12 +13,9 @@ function formatWithUnit(val, str = "") {
   }
   let number = val;
   if (str === "亿") {
-    number = float(number / (10 ** 8));
+    number = float(number / 10 ** 8);
   }
-  return `${number}${str}`
+  return `${number}${str}`;
 }
 
-export {
-  formatRank,
-  formatWithUnit
-}
+export { formatRank, formatWithUnit };

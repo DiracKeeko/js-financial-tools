@@ -1,5 +1,3 @@
-import * as formatter from './formatter';
+import * as formatter from "./formatter";
 
-export {
-  formatter
-}
+export { formatter };
