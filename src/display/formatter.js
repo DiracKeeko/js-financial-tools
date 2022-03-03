@@ -4,7 +4,7 @@ function formatRank(val) {
   if (!isRealNumber(val)) {
     return "--";
   }
-  return `$No.${val}`;
+  return `No.${val}`;
 }
 
 function formatWithUnit(val, unitStr = "", precision = 2) {
