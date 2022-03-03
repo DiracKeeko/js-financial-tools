@@ -11,7 +11,7 @@ function formatWithUnit(val, unitStr = "", precision = 2) {
   if (!isRealNumber(val)) {
     return "--";
   }
-  let num;
+  let num = val;
   switch (unitStr) {
     case "万":
       num = float(val / 10 ** 4, precision);
