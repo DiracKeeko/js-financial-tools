@@ -1,15 +1,23 @@
 const presets = [
   [
-    '@babel/env',
+    "@babel/env",
     {
-      useBuiltIns: 'usage',
-      corejs: { version: 2 }
+      useBuiltIns: "usage",
+      corejs: { version: 2 },
     },
   ],
-]
+];
 
 const plugins = [
-  '@babel/plugin-transform-runtime'
-]
+  "@babel/plugin-transform-runtime",
+  [
+    "module-resolver",
+    {
+      "alias": {
+        "@": "./src",
+      },
+    },
+  ],
+];
 
-module.exports = { presets, plugins }
+module.exports = { presets, plugins };
