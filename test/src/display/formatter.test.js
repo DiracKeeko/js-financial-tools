@@ -1,4 +1,4 @@
-import { formatter } from "@/display/index";
+import { formatter } from "@/display";
 import assert from "assert";
 
 const { formatRank, formatWithUnit, formatToFloat, formatToPercent } = formatter;
