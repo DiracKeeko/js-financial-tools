@@ -1024,15 +1024,6 @@
     return obj;
   }
 
-  // 20.2.2.21 Math.log10(x)
-  var $export = _export;
-
-  $export($export.S, 'Math', {
-    log10: function log10(x) {
-      return Math.log(x) * Math.LOG10E;
-    }
-  });
-
   function isRealNumber(num) {
     return typeof num === "number" && !isNaN(num);
   }
@@ -1059,22 +1050,30 @@
     return "".concat((num * 100).toFixed(accuracy), "%");
   }
 
-  function getIntPartLength(num) {
-    return Math.floor(Math.log10(Math.abs(num))) + 1;
-  }
-
   var number = /*#__PURE__*/Object.freeze({
     __proto__: null,
     isRealNumber: isRealNumber,
     float: _float,
-    percentage: percentage,
-    getIntPartLength: getIntPartLength
+    percentage: percentage
   });
 
   var calc = /*#__PURE__*/Object.freeze({
     __proto__: null,
     number: number
   });
+
+  // 20.2.2.21 Math.log10(x)
+  var $export = _export;
+
+  $export($export.S, 'Math', {
+    log10: function log10(x) {
+      return Math.log(x) * Math.LOG10E;
+    }
+  });
+
+  function getIntPartLength(num) {
+    return Math.floor(Math.log10(Math.abs(num))) + 1;
+  }
 
   function formatRank(val) {
     if (!isRealNumber(val)) {
@@ -1107,16 +1106,39 @@
     return "".concat(num).concat(unitStr);
   }
 
-  function formatToFloat(val) {
-    var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-    var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-    var radio = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+  function formatToMonetaryShape(val) {
+    var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
 
     if (!isRealNumber(val)) {
       return "--";
     }
 
-    var num = val / radio;
+    var intPartLength = getIntPartLength(val);
+
+    if (intPartLength > 8) {
+      var num = val / Math.pow(10, 8);
+      return "".concat(_float(num, precision), "\u4EBF");
+    }
+
+    if (intPartLength > 4) {
+      var _num = val / Math.pow(10, 4);
+
+      return "".concat(_float(_num, precision), "\u4E07");
+    }
+
+    return "".concat(_float(val, precision));
+  }
+
+  function formatToFloat(val) {
+    var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
+    var scale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+    if (!isRealNumber(val)) {
+      return "--";
+    }
+
+    var num = val / scale;
 
     if (num > 0) {
       return "".concat(plusSign).concat(_float(num, precision));
@@ -1128,13 +1150,13 @@
   function formatToPercent(val) {
     var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-    var radio = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+    var scale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
 
     if (!isRealNumber(val)) {
       return "--";
     }
 
-    var num = val / radio;
+    var num = val / scale;
 
     if (num > 0) {
       return "".concat(plusSign).concat(percentage(num, precision));
@@ -1147,6 +1169,7 @@
     __proto__: null,
     formatRank: formatRank,
     formatWithUnit: formatWithUnit,
+    formatToMonetaryShape: formatToMonetaryShape,
     formatToFloat: formatToFloat,
     formatToPercent: formatToPercent
   });

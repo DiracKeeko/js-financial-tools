@@ -1,7 +1,7 @@
 import { number } from "@/calc";
 import assert from "assert";
 
-const { isRealNumber, float, percentage, getIntPartLength } = number;
+const { isRealNumber, float, percentage } = number;
 
 describe("number test", () => {
   describe("isRealNumber", () => {
@@ -102,21 +102,6 @@ describe("number test", () => {
     it("percentage 09", () => {
       const res = percentage(1.23456, 3);
       assert(res === "123.456%");
-    });
-  });
-
-  describe("getIntPartLength", () => {
-    it("getIntPartLength 01", () => {
-      assert(getIntPartLength(12) === 2);
-    });
-    it("getIntPartLength 02", () => {
-      assert(getIntPartLength(128) === 3);
-    });
-    it("getIntPartLength 03", () => {
-      assert(getIntPartLength(128.4) === 3);
-    });
-    it("getIntPartLength 04", () => {
-      assert(getIntPartLength(-1100.23) === 4);
     });
   });
 });

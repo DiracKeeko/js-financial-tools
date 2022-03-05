@@ -18,8 +18,4 @@ function percentage(num, precision, placeholder = "--") {
   return `${(num * 100).toFixed(accuracy)}%`;
 }
 
-function getIntPartLength(num) {
-  return Math.floor(Math.log10(Math.abs(num))) + 1;
-}
-
-export { isRealNumber, float, percentage, getIntPartLength };
+export { isRealNumber, float, percentage };

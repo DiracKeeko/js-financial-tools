@@ -1,9 +1,6 @@
-import {
-  isRealNumber,
-  getIntPartLength,
-  float,
-  percentage,
-} from "@/calc/number";
+import { isRealNumber, float, percentage } from "@/calc/number";
+
+import { getIntPartLength } from "@/util/acquire";
 
 function formatRank(val) {
   if (!isRealNumber(val)) {

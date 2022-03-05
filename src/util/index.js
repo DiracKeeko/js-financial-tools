@@ -1,3 +1,4 @@
+import * as acquire from "./acquire";
 import * as compare from "./compare";
 
-export { compare };
+export { acquire, compare };
