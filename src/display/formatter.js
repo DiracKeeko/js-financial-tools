@@ -1,4 +1,9 @@
-import { isRealNumber, float, percentage } from "@/calc/number";
+import {
+  isRealNumber,
+  getIntPartLength,
+  float,
+  percentage,
+} from "@/calc/number";
 
 function formatRank(val) {
   if (!isRealNumber(val)) {
@@ -25,26 +30,48 @@ function formatWithUnit(val, unitStr = "", precision = 2) {
   return `${num}${unitStr}`;
 }
 
-function formatToFloat(val, plusSign = "", precision = 2, radio = 1) {
-  if (!isRealNumber(val)) { 
-    return "--"; 
-  } 
-  const num = val / radio;
+function formatToMonetaryShape(val, precision = 2) {
+  if (!isRealNumber(val)) {
+    return "--";
+  }
+  const intPartLength = getIntPartLength(val);
+  if (intPartLength > 8) {
+    const num = val / 10 ** 8;
+    return `${float(num, precision)}亿`;
+  }
+  if (intPartLength > 4) {
+    const num = val / 10 ** 4;
+    return `${float(num, precision)}万`;
+  }
+  return `${float(val, precision)}`;
+}
+
+function formatToFloat(val, plusSign = "", precision = 2, scale = 1) {
+  if (!isRealNumber(val)) {
+    return "--";
+  }
+  const num = val / scale;
   if (num > 0) {
     return `${plusSign}${float(num, precision)}`;
-  } 
+  }
   return float(num, precision);
 }
 
-function formatToPercent(val, plusSign = "", precision = 2, radio = 1) { 
-  if (!isRealNumber(val)) { 
-    return "--"; 
-  } 
-  const num = val / radio; 
-  if (num > 0) { 
-    return `${plusSign}${percentage(num, precision)}`; 
+function formatToPercent(val, plusSign = "", precision = 2, scale = 1) {
+  if (!isRealNumber(val)) {
+    return "--";
   }
-  return percentage(num, precision); 
+  const num = val / scale;
+  if (num > 0) {
+    return `${plusSign}${percentage(num, precision)}`;
+  }
+  return percentage(num, precision);
 }
 
-export { formatRank, formatWithUnit, formatToFloat, formatToPercent };
+export {
+  formatRank,
+  formatWithUnit,
+  formatToMonetaryShape,
+  formatToFloat,
+  formatToPercent,
+};

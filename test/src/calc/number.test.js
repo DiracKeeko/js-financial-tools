@@ -108,15 +108,15 @@ describe("number test", () => {
   describe("getIntPartLength", () => {
     it("getIntPartLength 01", () => {
       assert(getIntPartLength(12) === 2);
-    })
+    });
     it("getIntPartLength 02", () => {
       assert(getIntPartLength(128) === 3);
-    })
+    });
     it("getIntPartLength 03", () => {
       assert(getIntPartLength(128.4) === 3);
-    })
+    });
     it("getIntPartLength 04", () => {
       assert(getIntPartLength(-1100.23) === 4);
-    })
-  })
+    });
+  });
 });
