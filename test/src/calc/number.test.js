@@ -1,107 +1,122 @@
 import { number } from "@/calc";
 import assert from "assert";
 
-const { isRealNumber, float, percentage } = number;
+const { isRealNumber, float, percentage, getIntPartLength } = number;
 
 describe("number test", () => {
-  describe("isRealNumber() test", () => {
-    it("isRealNumber(undefined)", () => {
+  describe("isRealNumber", () => {
+    it("isRealNumber 01", () => {
       const res = isRealNumber(undefined);
       assert(res === false);
     });
-    it("isRealNumber(null)", () => {
+    it("isRealNumber 02", () => {
       const res = isRealNumber(null);
       assert(res === false);
     });
-    it("isRealNumber(NaN)", () => {
+    it("isRealNumber 03", () => {
       const res = isRealNumber(NaN);
       assert(res === false);
     });
-    it("isRealNumber(string)", () => {
+    it("isRealNumber 04", () => {
       const res = isRealNumber("33");
       assert(res === false);
     });
-    it("isRealNumber(number float)", () => {
+    it("isRealNumber 05", () => {
       const res = isRealNumber(1.1);
       assert(res === true);
     });
-    it("isRealNumber(number int)", () => {
+    it("isRealNumber 06", () => {
       const res = isRealNumber(22);
       assert(res === true);
     });
   });
 
-  describe("float() test", () => {
-    it("float(undefined, 3, '-')", () => {
+  describe("float", () => {
+    it("float 01", () => {
       const res = float(undefined, 3, "-");
       assert(res === "-");
     });
-    it("float(undefined)", () => {
+    it("float 02", () => {
       const res = float(undefined);
       assert(res === "--");
     });
-    it("float(null)", () => {
+    it("float 03", () => {
       const res = float(null);
       assert(res === "--");
     });
-    it("float(NaN)", () => {
+    it("float 04", () => {
       const res = float(NaN);
       assert(res === "--");
     });
-    it("float(string)", () => {
+    it("float 05", () => {
       const res = float("33");
       assert(res === "--");
     });
-    it("float(number float)", () => {
+    it("float 06", () => {
       const res = float(1.1);
       assert(res === "1.10");
     });
-    it("float(number, precision)", () => {
+    it("float 07", () => {
       const res = float(0.1122, 3);
       assert(res === "0.112");
     });
-    it("float(number int)", () => {
+    it("float 08", () => {
       const res = float(22);
       assert(res === "22.00");
     });
   });
 
-  describe("percentage() test", () => {
-    it("percentage(undefined, 3, '-')", () => {
+  describe("percentage", () => {
+    it("percentage 01", () => {
       const res = percentage(undefined, 3, "-");
       assert(res === "-");
     });
-    it("percentage(undefined)", () => {
+    it("percentage 02", () => {
       const res = percentage(undefined);
       assert(res === "--");
     });
-    it("percentage(null)", () => {
+    it("percentage 03", () => {
       const res = percentage(null);
       assert(res === "--");
     });
-    it("percentage(NaN)", () => {
+    it("percentage 04", () => {
       const res = percentage(NaN);
       assert(res === "--");
     });
-    it("percentage(string)", () => {
+    it("percentage 05", () => {
       const res = percentage("33");
       assert(res === "--");
     });
-    it("percentage(number float)", () => {
+    it("percentage 06", () => {
       const res = percentage(0.112233);
       assert(res === "11.22%");
     });
-    it("percentage(number float)", () => {
+    it("percentage 07", () => {
       const res = percentage(-0.112233);
       assert(res === "-11.22%");
     });
-    it("percentage(number, precision)", () => {
+    it("percentage 08", () => {
       const res = percentage(-0.112233, 3);
       assert(res === "-11.223%");
     });
-    it("percentage(number int)", () => {
+    it("percentage 09", () => {
       const res = percentage(1.23456, 3);
       assert(res === "123.456%");
     });
   });
+
+  describe("getIntPartLength", () => {
+    it("getIntPartLength 01", () => {
+      assert(getIntPartLength(12) === 2);
+    })
+    it("getIntPartLength 02", () => {
+      assert(getIntPartLength(128) === 3);
+    })
+    it("getIntPartLength 03", () => {
+      assert(getIntPartLength(128.4) === 3);
+    })
+    it("getIntPartLength 04", () => {
+      assert(getIntPartLength(-1100.23) === 4);
+    })
+  })
 });
