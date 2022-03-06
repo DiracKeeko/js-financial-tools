@@ -10,6 +10,11 @@ const gtZeroIntReg = /^([1-9]\d*)$/;
 
 const gteZeroIntReg = /^([1-9]\d*|0)$/;
 
+// ↓ float number must have a point
+const gtZeroFloatReg = /^([1-9]\d*\.\d+|0\.\d*[1-9]\d*)$/; // allow "11.230", ban "11", ban "11."
+
+const gteZeroFloatReg = /^([1-9]\d*|0)\.\d+$/; // allow "0.00", ban "0", ban "0."
+
 export {
   gtZeroNumReg,
   gteZeroNumReg,
@@ -17,4 +22,6 @@ export {
   gteZeroNumStrictReg,
   gtZeroIntReg,
   gteZeroIntReg,
+  gtZeroFloatReg,
+  gteZeroFloatReg,
 };

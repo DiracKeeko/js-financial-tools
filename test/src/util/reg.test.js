@@ -8,6 +8,8 @@ const {
   gteZeroNumStrictReg,
   gtZeroIntReg,
   gteZeroIntReg,
+  gtZeroFloatReg,
+  gteZeroFloatReg,
 } = reg;
 
 describe.only("reg test", () => {
@@ -160,5 +162,58 @@ describe.only("reg test", () => {
       assert(gteZeroIntReg.test("-11") === false);
     });
   });
-  
+
+  describe("gtZeroFloatReg", () => {
+    it("gtZeroFloatReg 01", () => {
+      assert(gtZeroFloatReg.test("0.1") === true);
+    });
+    it("gtZeroFloatReg 02", () => {
+      assert(gtZeroFloatReg.test("0.10") === true);
+    });
+    it("gtZeroFloatReg 03", () => {
+      assert(gtZeroFloatReg.test("1.23") === true);
+    });
+    it("gtZeroFloatReg 04", () => {
+      assert(gtZeroFloatReg.test("11") === false);
+    });
+    it("gtZeroFloatReg 05", () => {
+      assert(gtZeroFloatReg.test("-1.23") === false);
+    });
+    it("gtZeroFloatReg 06", () => {
+      assert(gtZeroFloatReg.test("0") === false);
+    });
+    it("gtZeroFloatReg 07", () => {
+      assert(gtZeroFloatReg.test("0.") === false);
+    });
+    it("gtZeroFloatReg 08", () => {
+      assert(gtZeroFloatReg.test("0.00") === false);
+    });
+  });
+
+  describe("gteZeroFloatReg", () => {
+    it("gteZeroFloatReg 01", () => {
+      assert(gteZeroFloatReg.test("0.1") === true);
+    });
+    it("gteZeroFloatReg 02", () => {
+      assert(gteZeroFloatReg.test("0.10") === true);
+    });
+    it("gteZeroFloatReg 03", () => {
+      assert(gteZeroFloatReg.test("1.23") === true);
+    });
+    it("gteZeroFloatReg 04", () => {
+      assert(gteZeroFloatReg.test("11") === false);
+    });
+    it("gteZeroFloatReg 05", () => {
+      assert(gteZeroFloatReg.test("-1.23") === false);
+    });
+    it("gteZeroFloatReg 06", () => {
+      assert(gteZeroFloatReg.test("0") === false);
+    });
+    it("gteZeroFloatReg 07", () => {
+      assert(gteZeroFloatReg.test("0.00") === true);
+    });
+    it("gteZeroFloatReg 08", () => {
+      assert(gteZeroFloatReg.test("-0.00") === false);
+    });
+  });
 });
