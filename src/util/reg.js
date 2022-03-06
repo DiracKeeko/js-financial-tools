@@ -6,4 +6,15 @@ const gtZeroNumStrictReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9])$/; // allow 
 
 const gteZeroNumStrictReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9]|0)$/; // allow "0", ban "0.", ban "0.00"
 
-export { gtZeroNumReg, gteZeroNumReg, gtZeroNumStrictReg, gteZeroNumStrictReg };
+const gtZeroIntReg = /^([1-9]\d*)$/;
+
+const gteZeroIntReg = /^([1-9]\d*|0)$/;
+
+export {
+  gtZeroNumReg,
+  gteZeroNumReg,
+  gtZeroNumStrictReg,
+  gteZeroNumStrictReg,
+  gtZeroIntReg,
+  gteZeroIntReg,
+};

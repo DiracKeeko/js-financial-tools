@@ -1,7 +1,14 @@
 import { reg } from "@/util";
 import assert from "assert";
 
-const { gtZeroNumReg, gteZeroNumReg, gtZeroNumStrictReg, gteZeroNumStrictReg } = reg;
+const {
+  gtZeroNumReg,
+  gteZeroNumReg,
+  gtZeroNumStrictReg,
+  gteZeroNumStrictReg,
+  gtZeroIntReg,
+  gteZeroIntReg,
+} = reg;
 
 describe.only("reg test", () => {
   describe("gtZeroNumReg", () => {
@@ -28,6 +35,9 @@ describe.only("reg test", () => {
     });
     it("gtZeroNumReg 08", () => {
       assert(gtZeroNumReg.test("0.00") === false);
+    });
+    it("gtZeroNumReg 09", () => {
+      assert(gtZeroNumReg.test("-22") === false);
     });
   });
 
@@ -56,6 +66,9 @@ describe.only("reg test", () => {
     it("gteZeroNumReg 08", () => {
       assert(gteZeroNumReg.test("0.00") === true);
     });
+    it("gteZeroNumReg 09", () => {
+      assert(gteZeroNumReg.test("-0.00") === false);
+    });
   });
 
   describe("gtZeroNumStrictReg", () => {
@@ -82,6 +95,9 @@ describe.only("reg test", () => {
     });
     it("gtZeroNumStrictReg 08", () => {
       assert(gtZeroNumStrictReg.test("0.00") === false);
+    });
+    it("gtZeroNumStrictReg 09", () => {
+      assert(gtZeroNumStrictReg.test("-1.11") === false);
     });
   });
 
@@ -110,5 +126,39 @@ describe.only("reg test", () => {
     it("gteZeroNumStrictReg 08", () => {
       assert(gteZeroNumStrictReg.test("0.00") === false);
     });
+    it("gteZeroNumStrictReg 09", () => {
+      assert(gteZeroNumStrictReg.test("-0.00") === false);
+    });
   });
+
+  describe("gtZeroIntReg", () => {
+    it("gtZeroIntReg 01", () => {
+      assert(gtZeroIntReg.test("0.1") === false);
+    });
+    it("gtZeroIntReg 02", () => {
+      assert(gtZeroIntReg.test("0") === false);
+    });
+    it("gtZeroIntReg 03", () => {
+      assert(gtZeroIntReg.test("11") === true);
+    });
+    it("gtZeroIntReg 04", () => {
+      assert(gtZeroIntReg.test("-11") === false);
+    });
+  });
+
+  describe("gteZeroIntReg", () => {
+    it("gteZeroIntReg 01", () => {
+      assert(gteZeroIntReg.test("0.1") === false);
+    });
+    it("gteZeroIntReg 02", () => {
+      assert(gteZeroIntReg.test("0") === true);
+    });
+    it("gteZeroIntReg 03", () => {
+      assert(gteZeroIntReg.test("11") === true);
+    });
+    it("gteZeroIntReg 04", () => {
+      assert(gteZeroIntReg.test("-11") === false);
+    });
+  });
+  
 });
