@@ -15,6 +15,10 @@ const gtZeroFloatReg = /^([1-9]\d*\.\d+|0\.\d*[1-9]\d*)$/; // allow "11.230", ba
 
 const gteZeroFloatReg = /^([1-9]\d*|0)\.\d+$/; // allow "0.00", ban "0", ban "0."
 
+const gtZeroFloatStrictReg = /^([1-9]\d*|0)\.\d*[1-9]$/; // allow "11.23", ban "11.", ban "11.230"
+
+// const gteZeroFloatStrictReg = null; // float nunmber 0 conflict with strict mode, this rule does not exist
+
 export {
   gtZeroNumReg,
   gteZeroNumReg,
@@ -24,4 +28,5 @@ export {
   gteZeroIntReg,
   gtZeroFloatReg,
   gteZeroFloatReg,
+  gtZeroFloatStrictReg
 };

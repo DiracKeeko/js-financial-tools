@@ -1075,6 +1075,30 @@
     return Math.floor(Math.log10(Math.abs(num))) + 1;
   }
 
+  function getMonetaryUnit(val) {
+    if (isRealNumber(val)) {
+      var intPartLength = getIntPartLength(val);
+
+      if (intPartLength > 8) {
+        return "亿";
+      }
+
+      if (intPartLength > 4) {
+        return "万";
+      }
+
+      return "";
+    }
+
+    return "";
+  }
+
+  var acquire = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    getIntPartLength: getIntPartLength,
+    getMonetaryUnit: getMonetaryUnit
+  });
+
   function formatRank(val) {
     if (!isRealNumber(val)) {
       return "--";
@@ -1179,10 +1203,77 @@
     formatter: formatter
   });
 
+  function gt(a, b) {
+    if (!isRealNumber(b)) {
+      return true;
+    }
+
+    if (!isRealNumber(a) && isRealNumber(b)) {
+      return false;
+    }
+
+    return a > b;
+  }
+
+  function lte(a, b) {
+    if (!isRealNumber(b)) {
+      return true;
+    }
+
+    if (!isRealNumber(a) && isRealNumber(b)) {
+      return false;
+    }
+
+    return a <= b;
+  }
+
+  var compare = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    gt: gt,
+    lte: lte
+  });
+
+  var gtZeroNumReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9]\d*)$/; // allow "11.230", ban "11."
+
+  var gteZeroNumReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d+|0)$/; // allow "0.00", ban "0."
+
+  var gtZeroNumStrictReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9])$/; // allow "11.23", ban "11.", ban "11.230"
+
+  var gteZeroNumStrictReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9]|0)$/; // allow "0", ban "0.", ban "0.00"
+
+  var gtZeroIntReg = /^([1-9]\d*)$/;
+  var gteZeroIntReg = /^([1-9]\d*|0)$/; // ↓ float number must have a point
+
+  var gtZeroFloatReg = /^([1-9]\d*\.\d+|0\.\d*[1-9]\d*)$/; // allow "11.230", ban "11", ban "11."
+
+  var gteZeroFloatReg = /^([1-9]\d*|0)\.\d+$/; // allow "0.00", ban "0", ban "0."
+
+  var gtZeroFloatStrictReg = /^([1-9]\d*|0)\.\d*[1-9]$/; // allow "11.23", ban "11.", ban "11.230"
+
+  var reg = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    gtZeroNumReg: gtZeroNumReg,
+    gteZeroNumReg: gteZeroNumReg,
+    gtZeroNumStrictReg: gtZeroNumStrictReg,
+    gteZeroNumStrictReg: gteZeroNumStrictReg,
+    gtZeroIntReg: gtZeroIntReg,
+    gteZeroIntReg: gteZeroIntReg,
+    gtZeroFloatReg: gtZeroFloatReg,
+    gteZeroFloatReg: gteZeroFloatReg,
+    gtZeroFloatStrictReg: gtZeroFloatStrictReg
+  });
+
+  var util = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    acquire: acquire,
+    compare: compare,
+    reg: reg
+  });
+
   function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
   function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-  var index = _objectSpread(_objectSpread({}, calc), display);
+  var index = _objectSpread(_objectSpread(_objectSpread({}, calc), display), util);
 
   return index;
 
