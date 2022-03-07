@@ -13,7 +13,7 @@ const {
   gtZeroFloatStrictReg
 } = reg;
 
-describe.only("reg test", () => {
+describe("reg test", () => {
   describe("gtZeroNumReg", () => {
     it("gtZeroNumReg 01", () => {
       assert(gtZeroNumReg.test("0.1") === true);

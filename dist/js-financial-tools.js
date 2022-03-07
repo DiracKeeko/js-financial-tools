@@ -315,12 +315,12 @@
   var ctx$1 = _ctx;
   var PROTOTYPE$2 = 'prototype';
 
-  var $export$8 = function (type, name, source) {
-    var IS_FORCED = type & $export$8.F;
-    var IS_GLOBAL = type & $export$8.G;
-    var IS_STATIC = type & $export$8.S;
-    var IS_PROTO = type & $export$8.P;
-    var IS_BIND = type & $export$8.B;
+  var $export$a = function (type, name, source) {
+    var IS_FORCED = type & $export$a.F;
+    var IS_GLOBAL = type & $export$a.G;
+    var IS_STATIC = type & $export$a.S;
+    var IS_PROTO = type & $export$a.P;
+    var IS_BIND = type & $export$a.B;
     var target = IS_GLOBAL ? global$2 : IS_STATIC ? global$2[name] || (global$2[name] = {}) : (global$2[name] || {})[PROTOTYPE$2];
     var exports = IS_GLOBAL ? core$2 : core$2[name] || (core$2[name] = {});
     var expProto = exports[PROTOTYPE$2] || (exports[PROTOTYPE$2] = {});
@@ -334,7 +334,7 @@
       // bind timers to global for call from export context
       exp = IS_BIND && own ? ctx$1(out, global$2) : IS_PROTO && typeof out == 'function' ? ctx$1(Function.call, out) : out;
       // extend global
-      if (target) redefine$1(target, key, out, type & $export$8.U);
+      if (target) redefine$1(target, key, out, type & $export$a.U);
       // export
       if (exports[key] != out) hide(exports, key, exp);
       if (IS_PROTO && expProto[key] != out) expProto[key] = out;
@@ -342,25 +342,25 @@
   };
   global$2.core = core$2;
   // type bitmap
-  $export$8.F = 1;   // forced
-  $export$8.G = 2;   // global
-  $export$8.S = 4;   // static
-  $export$8.P = 8;   // proto
-  $export$8.B = 16;  // bind
-  $export$8.W = 32;  // wrap
-  $export$8.U = 64;  // safe
-  $export$8.R = 128; // real proto method for `library`
-  var _export = $export$8;
+  $export$a.F = 1;   // forced
+  $export$a.G = 2;   // global
+  $export$a.S = 4;   // static
+  $export$a.P = 8;   // proto
+  $export$a.B = 16;  // bind
+  $export$a.W = 32;  // wrap
+  $export$a.U = 64;  // safe
+  $export$a.R = 128; // real proto method for `library`
+  var _export = $export$a;
 
   // most Object methods by ES6 should accept primitives
-  var $export$7 = _export;
+  var $export$9 = _export;
   var core$1 = _core.exports;
   var fails$1 = _fails;
   var _objectSap = function (KEY, exec) {
     var fn = (core$1.Object || {})[KEY] || Object[KEY];
     var exp = {};
     exp[KEY] = exec(fn);
-    $export$7($export$7.S + $export$7.F * fails$1(function () { fn(1); }), 'Object', exp);
+    $export$9($export$9.S + $export$9.F * fails$1(function () { fn(1); }), 'Object', exp);
   };
 
   // 19.1.2.14 Object.keys(O)
@@ -433,12 +433,12 @@
 
   var store = _shared.exports('wks');
   var uid$1 = _uid;
-  var Symbol = _global.exports.Symbol;
-  var USE_SYMBOL = typeof Symbol == 'function';
+  var Symbol$1 = _global.exports.Symbol;
+  var USE_SYMBOL = typeof Symbol$1 == 'function';
 
   var $exports = _wks.exports = function (name) {
     return store[name] || (store[name] =
-      USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid$1)('Symbol.' + name));
+      USE_SYMBOL && Symbol$1[name] || (USE_SYMBOL ? Symbol$1 : uid$1)('Symbol.' + name));
   };
 
   $exports.store = store;
@@ -608,7 +608,7 @@
   var global = _global.exports;
   var has = _has;
   var DESCRIPTORS = _descriptors;
-  var $export$6 = _export;
+  var $export$8 = _export;
   var redefine = _redefine.exports;
   var META = _meta.exports.KEY;
   var $fails = _fails;
@@ -767,7 +767,7 @@
     };
   }
 
-  $export$6($export$6.G + $export$6.W + $export$6.F * !USE_NATIVE, { Symbol: $Symbol });
+  $export$8($export$8.G + $export$8.W + $export$8.F * !USE_NATIVE, { Symbol: $Symbol });
 
   for (var es6Symbols = (
     // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
@@ -776,7 +776,7 @@
 
   for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
 
-  $export$6($export$6.S + $export$6.F * !USE_NATIVE, 'Symbol', {
+  $export$8($export$8.S + $export$8.F * !USE_NATIVE, 'Symbol', {
     // 19.4.2.1 Symbol.for(key)
     'for': function (key) {
       return has(SymbolRegistry, key += '')
@@ -792,7 +792,7 @@
     useSimple: function () { setter = false; }
   });
 
-  $export$6($export$6.S + $export$6.F * !USE_NATIVE, 'Object', {
+  $export$8($export$8.S + $export$8.F * !USE_NATIVE, 'Object', {
     // 19.1.2.2 Object.create(O [, Properties])
     create: $create,
     // 19.1.2.4 Object.defineProperty(O, P, Attributes)
@@ -811,14 +811,14 @@
   // https://bugs.chromium.org/p/v8/issues/detail?id=3443
   var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
 
-  $export$6($export$6.S + $export$6.F * FAILS_ON_PRIMITIVES, 'Object', {
+  $export$8($export$8.S + $export$8.F * FAILS_ON_PRIMITIVES, 'Object', {
     getOwnPropertySymbols: function getOwnPropertySymbols(it) {
       return $GOPS.f(toObject$1(it));
     }
   });
 
   // 24.3.2 JSON.stringify(value [, replacer [, space]])
-  $JSON && $export$6($export$6.S + $export$6.F * (!USE_NATIVE || $fails(function () {
+  $JSON && $export$8($export$8.S + $export$8.F * (!USE_NATIVE || $fails(function () {
     var S = $Symbol();
     // MS Edge converts symbol values to JSON as {}
     // WebKit converts symbol values to JSON as null
@@ -928,10 +928,10 @@
     });
   };
 
-  var $export$5 = _export;
+  var $export$7 = _export;
   var $filter = _arrayMethods(2);
 
-  $export$5($export$5.P + $export$5.F * !_strictMethod([].filter, true), 'Array', {
+  $export$7($export$7.P + $export$7.F * !_strictMethod([].filter, true), 'Array', {
     // 22.1.3.7 / 15.4.4.20 Array.prototype.filter(callbackfn [, thisArg])
     filter: function filter(callbackfn /* , thisArg */) {
       return $filter(this, callbackfn, arguments[1]);
@@ -948,11 +948,11 @@
     };
   });
 
-  var $export$4 = _export;
+  var $export$6 = _export;
   var $forEach = _arrayMethods(0);
   var STRICT = _strictMethod([].forEach, true);
 
-  $export$4($export$4.P + $export$4.F * !STRICT, 'Array', {
+  $export$6($export$6.P + $export$6.F * !STRICT, 'Array', {
     // 22.1.3.10 / 15.4.4.18 Array.prototype.forEach(callbackfn [, thisArg])
     forEach: function forEach(callbackfn /* , thisArg */) {
       return $forEach(this, callbackfn, arguments[1]);
@@ -979,13 +979,13 @@
   };
 
   // https://github.com/tc39/proposal-object-getownpropertydescriptors
-  var $export$3 = _export;
+  var $export$5 = _export;
   var ownKeys$1 = _ownKeys;
   var toIObject = _toIobject;
   var gOPD = _objectGopd;
   var createProperty = _createProperty;
 
-  $export$3($export$3.S, 'Object', {
+  $export$5($export$5.S, 'Object', {
     getOwnPropertyDescriptors: function getOwnPropertyDescriptors(object) {
       var O = toIObject(object);
       var getDesc = gOPD.f;
@@ -1001,13 +1001,13 @@
     }
   });
 
-  var $export$2 = _export;
+  var $export$4 = _export;
   // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-  $export$2($export$2.S + $export$2.F * !_descriptors, 'Object', { defineProperties: _objectDps });
+  $export$4($export$4.S + $export$4.F * !_descriptors, 'Object', { defineProperties: _objectDps });
 
-  var $export$1 = _export;
+  var $export$3 = _export;
   // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-  $export$1($export$1.S + $export$1.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
+  $export$3($export$3.S + $export$3.F * !_descriptors, 'Object', { defineProperty: _objectDp.f });
 
   function _defineProperty(obj, key, value) {
     if (key in obj) {
@@ -1062,12 +1062,72 @@
     number: number
   });
 
-  // 20.2.2.21 Math.log10(x)
-  var $export = _export;
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
 
-  $export($export.S, 'Math', {
+    for (var i = 0, arr2 = new Array(len); i < len; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+
+  function _arrayWithoutHoles(arr) {
+    if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+  }
+
+  function _iterableToArray(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+  }
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+
+  function _nonIterableSpread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  function _toConsumableArray(arr) {
+    return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+  }
+
+  // 20.2.2.21 Math.log10(x)
+  var $export$2 = _export;
+
+  $export$2($export$2.S, 'Math', {
     log10: function log10(x) {
       return Math.log(x) * Math.LOG10E;
+    }
+  });
+
+  var $export$1 = _export;
+  var $map = _arrayMethods(1);
+
+  $export$1($export$1.P + $export$1.F * !_strictMethod([].map, true), 'Array', {
+    // 22.1.3.15 / 15.4.4.19 Array.prototype.map(callbackfn [, thisArg])
+    map: function map(callbackfn /* , thisArg */) {
+      return $map(this, callbackfn, arguments[1]);
+    }
+  });
+
+  var $export = _export;
+  var $indexOf = _arrayIncludes(false);
+  var $native = [].indexOf;
+  var NEGATIVE_ZERO = !!$native && 1 / [1].indexOf(1, -0) < 0;
+
+  $export($export.P + $export.F * (NEGATIVE_ZERO || !_strictMethod($native)), 'Array', {
+    // 22.1.3.11 / 15.4.4.14 Array.prototype.indexOf(searchElement [, fromIndex])
+    indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
+      return NEGATIVE_ZERO
+        // convert -0 to +0
+        ? $native.apply(this, arguments) || 0
+        : $indexOf(this, searchElement, arguments[1]);
     }
   });
 
@@ -1093,10 +1153,31 @@
     return "";
   }
 
+  function getMaxDate(dateArr) {
+    // arr = ["2022-01-01", "2019-10-12", "2018-05-18"];
+    var timestampArr = dateArr.map(function (item) {
+      return new Date(item).getTime();
+    });
+    var maxTimestamp = Math.max.apply(Math, _toConsumableArray(timestampArr));
+    var maxTimeIndex = timestampArr.indexOf(maxTimestamp);
+    return dateArr[maxTimeIndex];
+  }
+
+  function getMinDate(dateArr) {
+    var timestampArr = dateArr.map(function (item) {
+      return new Date(item).getTime();
+    });
+    var minTimestamp = Math.min.apply(Math, _toConsumableArray(timestampArr));
+    var minTimeIndex = timestampArr.indexOf(minTimestamp);
+    return dateArr[minTimeIndex];
+  }
+
   var acquire = /*#__PURE__*/Object.freeze({
     __proto__: null,
     getIntPartLength: getIntPartLength,
-    getMonetaryUnit: getMonetaryUnit
+    getMonetaryUnit: getMonetaryUnit,
+    getMaxDate: getMaxDate,
+    getMinDate: getMinDate
   });
 
   function formatRank(val) {

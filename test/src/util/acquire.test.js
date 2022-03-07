@@ -1,7 +1,7 @@
 import { acquire } from "@/util";
 import assert from "assert";
 
-const { getIntPartLength, getMonetaryUnit } = acquire;
+const { getIntPartLength, getMonetaryUnit, getMaxDate, getMinDate } = acquire;
 
 describe("acquire test", () => {
   describe("getIntPartLength", () => {
@@ -33,4 +33,19 @@ describe("acquire test", () => {
       assert(getMonetaryUnit(2 * 10 ** 6) === "万");
     });
   });
+
+  describe("getMaxDate", () => {
+    it("getMaxDate 01", () => {
+      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"]
+      assert(getMaxDate(dateArr) === "2022-01-01");
+    });
+  });
+
+  describe("getMinDate", () => {
+    it("getMinDate 01", () => {
+      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"]
+      assert(getMinDate(dateArr) === "2018-05-18");
+    });
+  });
+
 });

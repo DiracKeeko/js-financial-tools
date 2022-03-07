@@ -18,4 +18,19 @@ function getMonetaryUnit(val) {
   return "";
 }
 
-export { getIntPartLength, getMonetaryUnit };
+function getMaxDate(dateArr) {
+  // arr = ["2022-01-01", "2019-10-12", "2018-05-18"];
+  const timestampArr = dateArr.map((item) => new Date(item).getTime());
+  const maxTimestamp = Math.max(...timestampArr);
+  const maxTimeIndex = timestampArr.indexOf(maxTimestamp);
+  return dateArr[maxTimeIndex];
+}
+
+function getMinDate(dateArr) {
+  const timestampArr = dateArr.map((item) => new Date(item).getTime());
+  const minTimestamp = Math.min(...timestampArr);
+  const minTimeIndex = timestampArr.indexOf(minTimestamp);
+  return dateArr[minTimeIndex];
+}
+
+export { getIntPartLength, getMonetaryUnit, getMaxDate, getMinDate };

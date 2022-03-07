@@ -47,6 +47,5 @@
     "rollup": "^2.68.0",
     "rollup-plugin-filesize": "^9.1.2",
     "rollup-plugin-uglify": "^6.0.4"
-  },
-  "dependencies": {}
+  }
 }
