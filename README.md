@@ -65,12 +65,15 @@ Use the formatToPercent method in formatter module.
 
 ```javascript
 const res1 = jsFinancialTools.formatter.formatToPercent(0.233578, "+", 3);
-console.log(res1); // 23.358%
+console.log(res1); // +23.358%
+
+const res2 = jsFinancialTools.formatter.formatToPercent(0.232323, "", 2);
+console.log(res2); // 23.23%
 ```
 
 Use the getIntPartLength method in acquire module.
 
 ```javascript
-const res2 = jsFinancialTools.acquire.getIntPartLength(123.456);
-console.log(res2); // 3
+const res3 = jsFinancialTools.acquire.getIntPartLength(123.456);
+console.log(res3); // 3
 ```
