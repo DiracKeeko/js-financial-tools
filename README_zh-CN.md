@@ -6,7 +6,7 @@
 
 ## 特性
 
-- API简单
+- API简单，支持模块化导入
 - 无依赖
 - 单元测试覆盖率及行输出覆盖率均达到100%
 
@@ -76,4 +76,26 @@ console.log(res2); // 23.23%
 ```javascript
 const res3 = jsFinancialTools.acquire.getIntPartLength(123.456);
 console.log(res3); // 3
+```
+
+## 模块化导入
+项目编译产物中有一个modules目录，这些文件的输出格式是CJS
+
+*文件目录示例如下*
+```
+|-- modules
+    |-- number.js
+    |-- formatter.js
+    |-- acquire.js
+    |-- compare.js
+```
+
+CommonJS:
+```javascript
+const { isRealNumber } = require('js-financial-tools/modules/number');
+```
+
+ES module:
+```javascript
+import { isRealNumber } from 'js-financial-tools/modules/number';
 ```

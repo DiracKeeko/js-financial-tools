@@ -6,9 +6,9 @@
 
 ## Features
 
-- Simple API
+- Simple API, support modular import
 - No dependencies
-- Unit function test coverage and line output coverage are both 100%
+- Unit function test coverage rate and line output rate coverage rate are both 100%
 
 ## Install
 
@@ -76,4 +76,27 @@ Use the getIntPartLength method in acquire module.
 ```javascript
 const res3 = jsFinancialTools.acquire.getIntPartLength(123.456);
 console.log(res3); // 3
+```
+
+## Modular import
+
+There is a modules directory in the project compilation product, the output format of these files is CJS
+
+*The directory list example is as follows*
+```
+|-- modules
+    |-- number.js
+    |-- formatter.js
+    |-- acquire.js
+    |-- compare.js
+```
+
+CommonJS:
+```javascript
+const { isRealNumber } = require('js-financial-tools/modules/number');
+```
+
+ES module:
+```javascript
+import { isRealNumber } from 'js-financial-tools/modules/number';
 ```
