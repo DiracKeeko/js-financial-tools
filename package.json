@@ -1,6 +1,6 @@
 {
   "name": "js-financial-tools",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "javascript financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
@@ -21,7 +21,8 @@
     "fund",
     "stock",
     "calc",
-    "display"
+    "display",
+    "Reg"
   ],
   "author": "DiracKeeko",
   "license": "Apache-2.0",
