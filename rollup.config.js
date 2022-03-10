@@ -1,7 +1,7 @@
 import filesize from "rollup-plugin-filesize";
 import babel from "@rollup/plugin-babel";
 import resolve from "@rollup/plugin-node-resolve";
-import { uglify } from "rollup-plugin-uglify";
+import { terser } from "rollup-plugin-terser";
 import commonjs from "@rollup/plugin-commonjs";
 import eslint from "@rollup/plugin-eslint";
 import alias from "@rollup/plugin-alias";
@@ -28,7 +28,7 @@ const plugins = [
   alias({
     entries: [{ find: "@", replacement: resolveDir("src") }],
   }),
-  isProduction && uglify(),
+  isProduction && terser(),
 ];
 
 const bundleOutputOptions = {
