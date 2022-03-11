@@ -8,10 +8,12 @@ const {
   gteZeroNumStrictReg,
   gtZeroIntReg,
   gteZeroIntReg,
+  floatReg,
+  floatStrictReg,
   gtZeroFloatReg,
   gteZeroFloatReg,
   gtZeroFloatStrictReg,
-  specialCharacterReg
+  specialCharacterReg,
 } = reg;
 
 describe("reg test", () => {
@@ -165,6 +167,69 @@ describe("reg test", () => {
     });
   });
 
+  describe("floatReg", () => {
+    it("floatReg 01", () => {
+      assert(floatReg.test("0.1") === true);
+    });
+    it("floatReg 02", () => {
+      assert(floatReg.test("0.10") === true);
+    });
+    it("floatReg 03", () => {
+      assert(floatReg.test("1.23") === true);
+    });
+    it("floatReg 04", () => {
+      assert(floatReg.test("11") === false);
+    });
+    it("floatReg 05", () => {
+      assert(floatReg.test("-1.23") === true);
+    });
+    it("floatReg 06", () => {
+      assert(floatReg.test("0") === false);
+    });
+    it("floatReg 07", () => {
+      assert(floatReg.test("0.") === false);
+    });
+    it("floatReg 08", () => {
+      assert(floatReg.test("0.00") === true);
+    });
+    it("floatReg 08", () => {
+      assert(floatReg.test("-0.00") === false);
+    });
+    it("floatReg 09", () => {
+      assert(floatReg.test("-0.01") === true);
+    });
+  });
+
+  describe("floatStrictReg", () => {
+    it("floatStrictReg 01", () => {
+      assert(floatStrictReg.test("0.1") === true);
+    });
+    it("floatStrictReg 02", () => {
+      assert(floatStrictReg.test("0.10") === false);
+    });
+    it("floatStrictReg 03", () => {
+      assert(floatStrictReg.test("-1.23") === true);
+    });
+    it("floatStrictReg 04", () => {
+      assert(floatStrictReg.test("11") === false);
+    });
+    it("floatStrictReg 05", () => {
+      assert(floatStrictReg.test("-1.23") === true);
+    });
+    it("floatStrictReg 06", () => {
+      assert(floatStrictReg.test("0") === false);
+    });
+    it("floatStrictReg 07", () => {
+      assert(floatStrictReg.test("0.") === false);
+    });
+    it("floatStrictReg 08", () => {
+      assert(floatStrictReg.test("0.00") === false);
+    });
+    it("floatStrictReg 08", () => {
+      assert(floatStrictReg.test("-0.00") === false);
+    });
+  });
+
   describe("gtZeroFloatReg", () => {
     it("gtZeroFloatReg 01", () => {
       assert(gtZeroFloatReg.test("0.1") === true);
@@ -262,6 +327,5 @@ describe("reg test", () => {
     it("specialCharacterReg 05", () => {
       assert(specialCharacterReg.test("1.23") === true);
     });
-    
   });
 });
