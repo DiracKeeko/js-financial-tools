@@ -10,7 +10,8 @@ const {
   gteZeroIntReg,
   gtZeroFloatReg,
   gteZeroFloatReg,
-  gtZeroFloatStrictReg
+  gtZeroFloatStrictReg,
+  specialCharacterReg
 } = reg;
 
 describe("reg test", () => {
@@ -243,5 +244,24 @@ describe("reg test", () => {
     it("gtZeroFloatStrictReg 08", () => {
       assert(gtZeroFloatStrictReg.test("0.00") === false);
     });
+  });
+
+  describe("specialCharacterReg", () => {
+    it("specialCharacterReg 01", () => {
+      assert(specialCharacterReg.test("[") === true);
+    });
+    it("specialCharacterReg 02", () => {
+      assert(specialCharacterReg.test(".") === true);
+    });
+    it("specialCharacterReg 03", () => {
+      assert(specialCharacterReg.test("1.23") === true);
+    });
+    it("specialCharacterReg 04", () => {
+      assert(specialCharacterReg.test("123") === false);
+    });
+    it("specialCharacterReg 05", () => {
+      assert(specialCharacterReg.test("1.23") === true);
+    });
+    
   });
 });
