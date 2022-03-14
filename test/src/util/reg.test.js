@@ -6,6 +6,7 @@ const {
   gteZeroNumReg,
   gtZeroNumStrictReg,
   gteZeroNumStrictReg,
+  intReg,
   gtZeroIntReg,
   gteZeroIntReg,
   floatReg,
@@ -134,6 +135,24 @@ describe("reg test", () => {
     });
     it("gteZeroNumStrictReg 09", () => {
       assert(gteZeroNumStrictReg.test("-0.00") === false);
+    });
+  });
+
+  describe("intReg", () => {
+    it("intReg 01", () => {
+      assert(intReg.test("0.1") === false);
+    });
+    it("intReg 02", () => {
+      assert(intReg.test("0") === true);
+    });
+    it("intReg 03", () => {
+      assert(intReg.test("-0") === false);
+    });
+    it("intReg 04", () => {
+      assert(intReg.test("11") === true);
+    });
+    it("intReg 05", () => {
+      assert(intReg.test("-11") === true);
     });
   });
 
