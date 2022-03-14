@@ -1322,14 +1322,23 @@
 
   var gteZeroNumStrictReg = /^([1-9]\d*(\.\d*[1-9]\d*)?|0\.\d*[1-9]|0)$/; // allow "0", ban "0.", ban "0.00"
 
+  var intReg = /^(-?[1-9]\d*|0)$/;
   var gtZeroIntReg = /^([1-9]\d*)$/;
   var gteZeroIntReg = /^([1-9]\d*|0)$/; // ↓ float number must have a point
+
+  var floatReg = /^(-?[1-9]\d*\.\d+|-?0\.\d*[1-9]\d*|0\.0+)$/; // allow "1.23", allow "-0.1", allow "0.00", ban "-0.00"
+
+  var floatStrictReg = /^(-?[1-9]\d*\.\d+|-?0\.\d*[1-9])$/; // allow "1.23", allow "-0.1", ban "1.10", ban "1."
 
   var gtZeroFloatReg = /^([1-9]\d*\.\d+|0\.\d*[1-9]\d*)$/; // allow "11.230", ban "11", ban "11."
 
   var gteZeroFloatReg = /^([1-9]\d*|0)\.\d+$/; // allow "0.00", ban "0", ban "0."
 
   var gtZeroFloatStrictReg = /^([1-9]\d*|0)\.\d*[1-9]$/; // allow "11.23", ban "11.", ban "11.230"
+  // const gteZeroFloatStrictReg = null; // float nunmber 0 conflict with strict mode, this rule does not exist
+  // special character in ASCII table
+
+  var specialCharacterReg = /[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]+/;
 
   var reg = /*#__PURE__*/Object.freeze({
     __proto__: null,
@@ -1337,11 +1346,15 @@
     gteZeroNumReg: gteZeroNumReg,
     gtZeroNumStrictReg: gtZeroNumStrictReg,
     gteZeroNumStrictReg: gteZeroNumStrictReg,
+    intReg: intReg,
     gtZeroIntReg: gtZeroIntReg,
     gteZeroIntReg: gteZeroIntReg,
+    floatReg: floatReg,
+    floatStrictReg: floatStrictReg,
     gtZeroFloatReg: gtZeroFloatReg,
     gteZeroFloatReg: gteZeroFloatReg,
-    gtZeroFloatStrictReg: gtZeroFloatStrictReg
+    gtZeroFloatStrictReg: gtZeroFloatStrictReg,
+    specialCharacterReg: specialCharacterReg
   });
 
   var util = /*#__PURE__*/Object.freeze({

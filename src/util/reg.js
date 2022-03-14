@@ -26,7 +26,7 @@ const gtZeroFloatStrictReg = /^([1-9]\d*|0)\.\d*[1-9]$/; // allow "11.23", ban "
 // const gteZeroFloatStrictReg = null; // float nunmber 0 conflict with strict mode, this rule does not exist
 
 // special character in ASCII table
-const specialCharacterReg = /[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]+/;;
+const specialCharacterReg = /[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]+/;
 
 export {
   gtZeroNumReg,
