@@ -8,7 +8,7 @@
 
 - Simple API, support modular import
 - No dependencies
-- Unit function test coverage rate and line output rate coverage rate are both 100%
+- Unit function test coverage rate and line output coverage rate are both 100%
 
 ## Install
 
