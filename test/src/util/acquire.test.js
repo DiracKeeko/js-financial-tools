@@ -1,7 +1,16 @@
 import { acquire } from "@/util";
 import assert from "assert";
+import { isEqual } from "lodash";
 
-const { getIntPartLength, getMonetaryUnit, getMaxDate, getMinDate, checkQuarterInRange, checkYearInRange } = acquire;
+const {
+  getIntPartLength,
+  getMonetaryUnit,
+  getMaxDate,
+  getMinDate,
+  checkQuarterInRange,
+  checkYearInRange,
+  createQuarterArr,
+} = acquire;
 
 describe("acquire test", () => {
   describe("getIntPartLength", () => {
@@ -36,14 +45,14 @@ describe("acquire test", () => {
 
   describe("getMaxDate", () => {
     it("getMaxDate 01", () => {
-      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"]
+      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"];
       assert(getMaxDate(dateArr) === "2022-01-01");
     });
   });
 
   describe("getMinDate", () => {
     it("getMinDate 01", () => {
-      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"]
+      const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"];
       assert(getMinDate(dateArr) === "2018-05-18");
     });
   });
@@ -70,4 +79,15 @@ describe("acquire test", () => {
     });
   });
 
+  describe("createQuarterArr", () => {
+    it("createQuarterArr 01", () => {
+      const dateRange = [];
+      assert(isEqual(createQuarterArr(dateRange), []));
+    });
+    it("createQuarterArr 02", () => {
+      const dateRange = ["2020-12-12", "2022-04-06"];
+      const expectedRes = ["2021Q1", "2021Q2", "2021Q3", "2021Q4", "2022Q1"];
+      assert(isEqual(createQuarterArr(dateRange), expectedRes));
+    });
+  });
 });

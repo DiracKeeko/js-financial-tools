@@ -92,6 +92,34 @@ function checkYearInRange(year, [startDate, endDate]) {
   return false;
 }
 
+/**
+ * Create a full quarter array that includes the dateRange
+ * 
+ * @param {Array} dateRange = [startDate, endDate]
+ * @returns ["2019Q1", "2019Q2", "2019Q3", "2019Q4", "2020Q1"]
+ */
+function createQuarterArr(dateRange) {
+  const quarterArr = [];
+  if (dateRange.length === 0) {
+    return quarterArr;
+  }
+  const [startDate, endDate] = dateRange;
+  const yearArr = []; // ["2019", "2020", ...]
+  const startYear = startDate.split("-")[0];
+  const endYear = endDate.split("-")[0];
+  for (let i = parseInt(startYear, 10); i <= parseInt(endYear, 10); i++) {
+    yearArr.push(i.toString());
+    const fullQuarter = ["Q1", "Q2", "Q3", "Q4"];
+    fullQuarter.forEach(item => {
+      if (checkQuarterInRange(i, item, dateRange)) {
+        const quarterStr = `${i}${item}`;
+        quarterArr.push(quarterStr);
+      }
+    });
+  }
+  return quarterArr;
+}
+
 export {
   getIntPartLength,
   getMonetaryUnit,
@@ -99,4 +127,5 @@ export {
   getMinDate,
   checkQuarterInRange,
   checkYearInRange,
+  createQuarterArr
 };
