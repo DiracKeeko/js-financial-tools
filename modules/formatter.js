@@ -4,7 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var number = require('./number.js');
 var acquire = require('./acquire.js');
-require('./_array-includes-3a6df369.js');
+require('./es6.regexp.to-string-a901b36e.js');
+require('./_to-absolute-index-eab53ef4.js');
+require('./constant.js');
 
 function formatRank(val) {
   if (!number.isRealNumber(val)) {

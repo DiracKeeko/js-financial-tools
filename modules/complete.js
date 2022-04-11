@@ -2,42 +2,13 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var _arrayIncludes = require('./_array-includes-3a6df369.js');
+var es6_regexp_toString = require('./es6.regexp.to-string-a901b36e.js');
+var es6_array_slice = require('./es6.array.slice-b5a88791.js');
+var _toAbsoluteIndex = require('./_to-absolute-index-eab53ef4.js');
 
-var document = _arrayIncludes._global.exports.document;
-var _html = document && document.documentElement;
-
-var $export$2 = _arrayIncludes._export;
-var html = _html;
-var cof$2 = _arrayIncludes._cof;
-var toAbsoluteIndex$1 = _arrayIncludes._toAbsoluteIndex;
-var toLength$1 = _arrayIncludes._toLength;
-var arraySlice = [].slice;
-
-// fallback for not array-like ES3 strings and DOM objects
-$export$2($export$2.P + $export$2.F * _arrayIncludes._fails(function () {
-  if (html) arraySlice.call(html);
-}), 'Array', {
-  slice: function slice(begin, end) {
-    var len = toLength$1(this.length);
-    var klass = cof$2(this);
-    end = end === undefined ? len : end;
-    if (klass == 'Array') return arraySlice.call(this, begin, end);
-    var start = toAbsoluteIndex$1(begin, len);
-    var upTo = toAbsoluteIndex$1(end, len);
-    var size = toLength$1(upTo - start);
-    var cloned = new Array(size);
-    var i = 0;
-    for (; i < size; i++) cloned[i] = klass == 'String'
-      ? this.charAt(start + i)
-      : this[start + i];
-    return cloned;
-  }
-});
-
-var toObject = _arrayIncludes._toObject;
-var toAbsoluteIndex = _arrayIncludes._toAbsoluteIndex;
-var toLength = _arrayIncludes._toLength;
+var toObject = _toAbsoluteIndex._toObject;
+var toAbsoluteIndex = _toAbsoluteIndex._toAbsoluteIndex;
+var toLength = _toAbsoluteIndex._toLength;
 var _arrayFill = function fill(value /* , start = 0, end = @length */) {
   var O = toObject(this);
   var length = toLength(O.length);
@@ -50,114 +21,24 @@ var _arrayFill = function fill(value /* , start = 0, end = @length */) {
 };
 
 // 22.1.3.31 Array.prototype[@@unscopables]
-var UNSCOPABLES = _arrayIncludes._wks.exports('unscopables');
+var UNSCOPABLES = _toAbsoluteIndex._wks.exports('unscopables');
 var ArrayProto = Array.prototype;
-if (ArrayProto[UNSCOPABLES] == undefined) _arrayIncludes._hide(ArrayProto, UNSCOPABLES, {});
+if (ArrayProto[UNSCOPABLES] == undefined) _toAbsoluteIndex._hide(ArrayProto, UNSCOPABLES, {});
 var _addToUnscopables = function (key) {
   ArrayProto[UNSCOPABLES][key] = true;
 };
 
 // 22.1.3.6 Array.prototype.fill(value, start = 0, end = this.length)
-var $export$1 = _arrayIncludes._export;
+var $export$1 = _toAbsoluteIndex._export;
 
 $export$1($export$1.P, 'Array', { fill: _arrayFill });
 
 _addToUnscopables('fill');
 
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof$1 = _arrayIncludes._cof;
-var TAG = _arrayIncludes._wks.exports('toStringTag');
-// ES3 wrong here
-var ARG = cof$1(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-var _classof = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof$1(O)
-    // ES3 arguments fallback
-    : (B = cof$1(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-// 19.1.3.6 Object.prototype.toString()
-var classof = _classof;
-var test = {};
-test[_arrayIncludes._wks.exports('toStringTag')] = 'z';
-if (test + '' != '[object z]') {
-  _arrayIncludes._redefine.exports(Object.prototype, 'toString', function toString() {
-    return '[object ' + classof(this) + ']';
-  }, true);
-}
-
-var DateProto = Date.prototype;
-var INVALID_DATE = 'Invalid Date';
-var TO_STRING$1 = 'toString';
-var $toString$1 = DateProto[TO_STRING$1];
-var getTime = DateProto.getTime;
-if (new Date(NaN) + '' != INVALID_DATE) {
-  _arrayIncludes._redefine.exports(DateProto, TO_STRING$1, function toString() {
-    var value = getTime.call(this);
-    // eslint-disable-next-line no-self-compare
-    return value === value ? $toString$1.call(this) : INVALID_DATE;
-  });
-}
-
-// 21.2.5.3 get RegExp.prototype.flags
-var anObject$4 = _arrayIncludes._anObject;
-var _flags = function () {
-  var that = anObject$4(this);
-  var result = '';
-  if (that.global) result += 'g';
-  if (that.ignoreCase) result += 'i';
-  if (that.multiline) result += 'm';
-  if (that.unicode) result += 'u';
-  if (that.sticky) result += 'y';
-  return result;
-};
-
-// 21.2.5.3 get RegExp.prototype.flags()
-if (_arrayIncludes._descriptors && /./g.flags != 'g') _arrayIncludes._objectDp.f(RegExp.prototype, 'flags', {
-  configurable: true,
-  get: _flags
-});
-
-var anObject$3 = _arrayIncludes._anObject;
-var $flags = _flags;
-var DESCRIPTORS = _arrayIncludes._descriptors;
-var TO_STRING = 'toString';
-var $toString = /./[TO_STRING];
-
-var define = function (fn) {
-  _arrayIncludes._redefine.exports(RegExp.prototype, TO_STRING, fn, true);
-};
-
-// 21.2.5.14 RegExp.prototype.toString()
-if (_arrayIncludes._fails(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
-  define(function toString() {
-    var R = anObject$3(this);
-    return '/'.concat(R.source, '/',
-      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
-  });
-// FF44- RegExp#toString has a wrong name
-} else if ($toString.name != TO_STRING) {
-  define(function toString() {
-    return $toString.call(this);
-  });
-}
-
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
-var isObject$1 = _arrayIncludes._isObject;
-var anObject$2 = _arrayIncludes._anObject;
+var isObject$1 = _toAbsoluteIndex._isObject;
+var anObject$2 = _toAbsoluteIndex._anObject;
 var check = function (O, proto) {
   anObject$2(O);
   if (!isObject$1(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -180,7 +61,7 @@ var _setProto = {
   check: check
 };
 
-var isObject = _arrayIncludes._isObject;
+var isObject = _toAbsoluteIndex._isObject;
 var setPrototypeOf = _setProto.set;
 var _inheritIfRequired = function (that, target, C) {
   var S = target.constructor;
@@ -192,15 +73,15 @@ var _inheritIfRequired = function (that, target, C) {
 
 var _objectGopn = {};
 
-var shared = _arrayIncludes._shared.exports('keys');
-var uid = _arrayIncludes._uid;
+var shared = _toAbsoluteIndex._shared.exports('keys');
+var uid = _toAbsoluteIndex._uid;
 var _sharedKey = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-var has$2 = _arrayIncludes._has;
-var toIObject$1 = _arrayIncludes._toIobject;
-var arrayIndexOf = _arrayIncludes._arrayIncludes(false);
+var has$2 = _toAbsoluteIndex._has;
+var toIObject$1 = es6_regexp_toString._toIobject;
+var arrayIndexOf = es6_regexp_toString._arrayIncludes(false);
 var IE_PROTO$1 = _sharedKey('IE_PROTO');
 
 var _objectKeysInternal = function (object, names) {
@@ -236,14 +117,14 @@ var _objectPie = {};
 _objectPie.f = {}.propertyIsEnumerable;
 
 var pIE = _objectPie;
-var createDesc = _arrayIncludes._propertyDesc;
-var toIObject = _arrayIncludes._toIobject;
-var toPrimitive$1 = _arrayIncludes._toPrimitive;
-var has$1 = _arrayIncludes._has;
-var IE8_DOM_DEFINE = _arrayIncludes._ie8DomDefine;
+var createDesc = _toAbsoluteIndex._propertyDesc;
+var toIObject = es6_regexp_toString._toIobject;
+var toPrimitive$1 = _toAbsoluteIndex._toPrimitive;
+var has$1 = _toAbsoluteIndex._has;
+var IE8_DOM_DEFINE = _toAbsoluteIndex._ie8DomDefine;
 var gOPD$1 = Object.getOwnPropertyDescriptor;
 
-_objectGopd.f = _arrayIncludes._descriptors ? gOPD$1 : function getOwnPropertyDescriptor(O, P) {
+_objectGopd.f = _toAbsoluteIndex._descriptors ? gOPD$1 : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive$1(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -255,9 +136,9 @@ _objectGopd.f = _arrayIncludes._descriptors ? gOPD$1 : function getOwnPropertyDe
 var _stringWs = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
   '\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
-var $export = _arrayIncludes._export;
-var defined = _arrayIncludes._defined;
-var fails$1 = _arrayIncludes._fails;
+var $export = _toAbsoluteIndex._export;
+var defined = _toAbsoluteIndex._defined;
+var fails$1 = _toAbsoluteIndex._fails;
 var spaces = _stringWs;
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
@@ -294,11 +175,11 @@ var _objectKeys = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys$1);
 };
 
-var dP$1 = _arrayIncludes._objectDp;
-var anObject$1 = _arrayIncludes._anObject;
+var dP$1 = _toAbsoluteIndex._objectDp;
+var anObject$1 = _toAbsoluteIndex._anObject;
 var getKeys = _objectKeys;
 
-var _objectDps = _arrayIncludes._descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
+var _objectDps = _toAbsoluteIndex._descriptors ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject$1(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -309,7 +190,7 @@ var _objectDps = _arrayIncludes._descriptors ? Object.defineProperties : functio
 };
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = _arrayIncludes._anObject;
+var anObject = _toAbsoluteIndex._anObject;
 var dPs = _objectDps;
 var enumBugKeys = _enumBugKeys;
 var IE_PROTO = _sharedKey('IE_PROTO');
@@ -319,13 +200,13 @@ var PROTOTYPE = 'prototype';
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = _arrayIncludes._domCreate('iframe');
+  var iframe = _toAbsoluteIndex._domCreate('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  _html.appendChild(iframe);
+  es6_array_slice._html.appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -350,15 +231,15 @@ var _objectCreate = Object.create || function create(O, Properties) {
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
-var global = _arrayIncludes._global.exports;
-var has = _arrayIncludes._has;
-var cof = _arrayIncludes._cof;
+var global = _toAbsoluteIndex._global.exports;
+var has = _toAbsoluteIndex._has;
+var cof = _toAbsoluteIndex._cof;
 var inheritIfRequired = _inheritIfRequired;
-var toPrimitive = _arrayIncludes._toPrimitive;
-var fails = _arrayIncludes._fails;
+var toPrimitive = _toAbsoluteIndex._toPrimitive;
+var fails = _toAbsoluteIndex._fails;
 var gOPN = _objectGopn.f;
 var gOPD = _objectGopd.f;
-var dP = _arrayIncludes._objectDp.f;
+var dP = _toAbsoluteIndex._objectDp.f;
 var $trim = _stringTrim.trim;
 var NUMBER = 'Number';
 var $Number = global[NUMBER];
@@ -403,7 +284,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
       && (BROKEN_COF ? fails(function () { proto.valueOf.call(that); }) : cof(that) != NUMBER)
         ? inheritIfRequired(new Base(toNumber(it)), that, $Number) : toNumber(it);
   };
-  for (var keys = _arrayIncludes._descriptors ? gOPN(Base) : (
+  for (var keys = _toAbsoluteIndex._descriptors ? gOPN(Base) : (
     // ES3:
     'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
     // ES6 (in case, if modules with ES6 Number statics required before):
@@ -416,7 +297,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
   }
   $Number.prototype = proto;
   proto.constructor = $Number;
-  _arrayIncludes._redefine.exports(global, NUMBER, $Number);
+  _toAbsoluteIndex._redefine.exports(global, NUMBER, $Number);
 }
 
 /* 
@@ -465,7 +346,7 @@ function completeStockTimeDataArr(TimeDataArr) {
   while (h < 15) {
     while (m < 60) {
       var timeNumber = Number("".concat(dataMaxStrPre).concat(h < 10 ? "0".concat(h) : h).concat(m < 10 ? "0".concat(m) : m));
-      data.push([timeNumber].concat(_arrayIncludes._toConsumableArray(undefinedArr)));
+      data.push([timeNumber].concat(es6_regexp_toString._toConsumableArray(undefinedArr)));
       m += 1;
 
       if (h === 11 && m > 30) {
@@ -476,7 +357,7 @@ function completeStockTimeDataArr(TimeDataArr) {
 
     m = h === 12 ? 1 : 0;
     h += 1;
-    h === 15 && data.push([Number("".concat(dataMaxStrPre, "1500"))].concat(_arrayIncludes._toConsumableArray(undefinedArr)));
+    h === 15 && data.push([Number("".concat(dataMaxStrPre, "1500"))].concat(es6_regexp_toString._toConsumableArray(undefinedArr)));
   }
 
   return data;

@@ -1,6 +1,6 @@
 {
   "name": "js-financial-tools",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "javascript financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
