@@ -9,6 +9,16 @@ function formatRank(val) {
   return `No.${val}`;
 }
 
+function formatLongText(val, limit) {
+  if (!val) {
+    return "--";
+  }
+  if (val.length > limit) {
+    return `${val.slice(0, limit)}...`;
+  }
+  return val;
+}
+
 function formatWithUnit(val, unitStr = "", precision = 2) {
   if (!isRealNumber(val)) {
     return "--";
@@ -67,6 +77,7 @@ function formatToPercent(val, plusSign = "", precision = 2, scale = 1) {
 
 export {
   formatRank,
+  formatLongText,
   formatWithUnit,
   formatToMonetaryShape,
   formatToFloat,

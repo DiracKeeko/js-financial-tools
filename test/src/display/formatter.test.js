@@ -3,6 +3,7 @@ import assert from "assert";
 
 const {
   formatRank,
+  formatLongText,
   formatWithUnit,
   formatToMonetaryShape,
   formatToFloat,
@@ -18,6 +19,21 @@ describe("formatter test", () => {
     it("formatRank 02", () => {
       const res = formatRank(1);
       assert(res === "No.1");
+    });
+  });
+
+  describe("formatLongText", () => {
+    it("formatLongText 01", () => {
+      const res = formatLongText();
+      assert(res === "--");
+    });
+    it("formatLongText 02", () => {
+      const res = formatLongText("hello world", 3);
+      assert(res === "hel...");
+    });
+    it("formatLongText 03", () => {
+      const res = formatLongText("hello world", 20);
+      assert(res === "hello world");
     });
   });
 
