@@ -39,7 +39,7 @@ const bundleOutputOptions = {
       : "dist/js-financial-tools.js",
     format: "umd",
     exports: "default",
-    name: "JsFinancialTools",
+    name: "jsFinancialTools",
   },
   plugins,
 };
