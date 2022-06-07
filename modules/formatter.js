@@ -2,10 +2,11 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+require('./es6.array.slice-b5a88791.js');
 var number = require('./number.js');
 var acquire = require('./acquire.js');
-require('./es6.regexp.to-string-a901b36e.js');
 require('./_to-absolute-index-eab53ef4.js');
+require('./es6.regexp.to-string-a901b36e.js');
 require('./constant.js');
 
 function formatRank(val) {
@@ -14,6 +15,18 @@ function formatRank(val) {
   }
 
   return "No.".concat(val);
+}
+
+function formatLongText(val, limit) {
+  if (!val) {
+    return "--";
+  }
+
+  if (val.length > limit) {
+    return "".concat(val.slice(0, limit), "...");
+  }
+
+  return val;
 }
 
 function formatWithUnit(val) {
@@ -98,6 +111,7 @@ function formatToPercent(val) {
   return number.percentage(num, precision);
 }
 
+exports.formatLongText = formatLongText;
 exports.formatRank = formatRank;
 exports.formatToFloat = formatToFloat;
 exports.formatToMonetaryShape = formatToMonetaryShape;

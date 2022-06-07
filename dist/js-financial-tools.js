@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.JsFinancialTools = factory());
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.jsFinancialTools = factory());
 })(this, (function () { 'use strict';
 
   // 7.2.1 RequireObjectCoercible(argument)
@@ -1910,6 +1910,18 @@
     return "No.".concat(val);
   }
 
+  function formatLongText(val, limit) {
+    if (!val) {
+      return "--";
+    }
+
+    if (val.length > limit) {
+      return "".concat(val.slice(0, limit), "...");
+    }
+
+    return val;
+  }
+
   function formatWithUnit(val) {
     var unitStr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
     var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
@@ -1995,6 +2007,7 @@
   var formatter = /*#__PURE__*/Object.freeze({
     __proto__: null,
     formatRank: formatRank,
+    formatLongText: formatLongText,
     formatWithUnit: formatWithUnit,
     formatToMonetaryShape: formatToMonetaryShape,
     formatToFloat: formatToFloat,
