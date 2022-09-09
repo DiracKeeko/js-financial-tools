@@ -1,4 +1,5 @@
 import { acquire } from "@/util";
+import { getDateTime } from "@/util/constant";
 import assert from "assert";
 import { isEqual } from "lodash";
 
@@ -7,6 +8,7 @@ const {
   getMonetaryUnit,
   getMaxDate,
   getMinDate,
+  getTimeRangeIntersection,
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
@@ -54,6 +56,23 @@ describe("acquire test", () => {
     it("getMinDate 01", () => {
       const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"];
       assert(getMinDate(dateArr) === "2018-05-18");
+    });
+  });
+
+  describe("getTimeRangeIntersection", () => {
+    it("getTimeRangeIntersection 01", () => {
+      const dateRange1 = [getDateTime("2021-03-03"), getDateTime("2021-06-06")];
+      const dateRange2 = [getDateTime("2021-05-05"), getDateTime("2021-08-08")];
+      const dateRangeIntersection = [getDateTime("2021-05-05"), getDateTime("2021-06-06")];
+      const res = getTimeRangeIntersection(dateRange1, dateRange2);
+      assert(isEqual(res, dateRangeIntersection));
+    });
+    it("getTimeRangeIntersection 02", () => {
+      const dateRange1 = [getDateTime("2021-03-03"), getDateTime("2021-05-05")];
+      const dateRange2 = [getDateTime("2021-06-06"), getDateTime("2021-08-08")];
+      const dateRangeIntersection = [];
+      const res = getTimeRangeIntersection(dateRange1, dateRange2);
+      assert(isEqual(res, dateRangeIntersection));
     });
   });
 

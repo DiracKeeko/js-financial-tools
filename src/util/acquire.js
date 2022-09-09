@@ -46,6 +46,23 @@ function getMinDate(dateArr) {
 }
 
 /**
+ * @param {[startTimestamp1, endTimestamp1]} range1
+ * @param {[startTimestamp2, endTimestamp2]} range2
+ *
+ * @returns [startTimestamp, endTimeStamp] || []
+ */
+function getTimeRangeIntersection(range1, range2) {
+  const [startTimestamp1, endTimestamp1] = range1;
+  const [startTimestamp2, endTimestamp2] = range2;
+  const startTimestamp = Math.max(startTimestamp1, startTimestamp2);
+  const endTimestamp = Math.min(endTimestamp1, endTimestamp2);
+  if (startTimestamp < endTimestamp) {
+    return [startTimestamp, endTimestamp];
+  }
+  return [];
+}
+
+/**
  *
  * @param {String|Number} year
  * case1: "2020"
@@ -125,6 +142,7 @@ export {
   getMonetaryUnit,
   getMaxDate,
   getMinDate,
+  getTimeRangeIntersection,
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr
