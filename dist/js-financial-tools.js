@@ -1800,6 +1800,32 @@
     return dateArr[minTimeIndex];
   }
   /**
+   * @param {[startTimestamp1, endTimestamp1]} range1
+   * @param {[startTimestamp2, endTimestamp2]} range2
+   *
+   * @returns [startTimestamp, endTimeStamp] || []
+   */
+
+
+  function getTimeRangeIntersection(range1, range2) {
+    var _range = _slicedToArray(range1, 2),
+        startTimestamp1 = _range[0],
+        endTimestamp1 = _range[1];
+
+    var _range2 = _slicedToArray(range2, 2),
+        startTimestamp2 = _range2[0],
+        endTimestamp2 = _range2[1];
+
+    var startTimestamp = Math.max(startTimestamp1, startTimestamp2);
+    var endTimestamp = Math.min(endTimestamp1, endTimestamp2);
+
+    if (startTimestamp < endTimestamp) {
+      return [startTimestamp, endTimestamp];
+    }
+
+    return [];
+  }
+  /**
    *
    * @param {String|Number} year
    * case1: "2020"
@@ -1897,6 +1923,7 @@
     getMonetaryUnit: getMonetaryUnit,
     getMaxDate: getMaxDate,
     getMinDate: getMinDate,
+    getTimeRangeIntersection: getTimeRangeIntersection,
     checkQuarterInRange: checkQuarterInRange,
     checkYearInRange: checkYearInRange,
     createQuarterArr: createQuarterArr
