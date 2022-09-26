@@ -6,6 +6,9 @@ import commonjs from "@rollup/plugin-commonjs";
 import eslint from "@rollup/plugin-eslint";
 import alias from "@rollup/plugin-alias";
 
+import typescript from "rollup-plugin-typescript";
+import sourceMaps from "rollup-plugin-sourcemaps";
+
 const fs = require("fs");
 const path = require("path");
 function resolveDir(dir) {
@@ -15,6 +18,12 @@ function resolveDir(dir) {
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = [
+  typescript({
+    include: ["src/**"],
+    exclude: "node_modules/**",
+    typescript: require("typescript"),
+  }),
+  sourceMaps(),
   eslint({
     throwOnError: true,
     throwOnWarning: true,
@@ -40,6 +49,7 @@ const bundleOutputOptions = {
     format: "umd",
     exports: "default",
     name: "jsFinancialTools",
+    sourcemap: true,
   },
   plugins,
 };
@@ -71,6 +81,7 @@ const moduleOutputOptions = {
     dir: "modules",
     format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
     name: "[name].js",
+    sourcemap: true,
   },
   plugins,
 };
