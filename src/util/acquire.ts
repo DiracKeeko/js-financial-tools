@@ -6,11 +6,14 @@ import {
   wholeYearRangeArr,
 } from "./constant";
 
-function getIntPartLength(num) {
+type DateRange = [number, number];
+type DateStrRange = [string, string] | [];
+
+function getIntPartLength(num: number): number {
   return Math.floor(Math.log10(Math.abs(num))) + 1;
 }
 
-function getMonetaryUnit(val) {
+function getMonetaryUnit(val: number) {
   if (isRealNumber(val)) {
     const intPartLength = getIntPartLength(val);
     if (intPartLength > 8) {
@@ -31,14 +34,14 @@ function getMonetaryUnit(val) {
  * @returns maxDateStr
  * case1 result: "2022-01-01"
  */
-function getMaxDate(dateArr) {
+function getMaxDate(dateArr: string[]): string {
   const timestampArr = dateArr.map((item) => getDateTime(item));
   const maxTimestamp = Math.max(...timestampArr);
   const maxTimeIndex = timestampArr.indexOf(maxTimestamp);
   return dateArr[maxTimeIndex];
 }
 
-function getMinDate(dateArr) {
+function getMinDate(dateArr: string[]): string {
   const timestampArr = dateArr.map((item) => getDateTime(item));
   const minTimestamp = Math.min(...timestampArr);
   const minTimeIndex = timestampArr.indexOf(minTimestamp);
@@ -51,7 +54,10 @@ function getMinDate(dateArr) {
  *
  * @returns [startTimestamp, endTimeStamp] || []
  */
-function getTimeRangeIntersection(range1, range2) {
+function getTimeRangeIntersection(
+  range1: DateRange,
+  range2: DateRange
+): number[] {
   const [startTimestamp1, endTimestamp1] = range1;
   const [startTimestamp2, endTimestamp2] = range2;
   const startTimestamp = Math.max(startTimestamp1, startTimestamp2);
@@ -73,7 +79,15 @@ function getTimeRangeIntersection(range1, range2) {
  *
  * @returns Boolean
  */
-function checkQuarterInRange(year, quarter, [startDate, endDate]) {
+function checkQuarterInRange(
+  year: string | number,
+  quarter: string,
+  dateRange: DateStrRange
+): boolean {
+  if (dateRange.length === 0) {
+    return false;
+  }
+  const [startDate, endDate] = dateRange;
   const startTimeStamp = getDateTime(startDate);
   const endTimeStamp = getDateTime(endDate);
   const quarterStartDate = `${year}-${wholeQuarterRangeMap[quarter][0]}`;
@@ -91,7 +105,14 @@ function checkQuarterInRange(year, quarter, [startDate, endDate]) {
   return false;
 }
 
-function checkYearInRange(year, [startDate, endDate]) {
+function checkYearInRange(
+  year: string | number,
+  dateRange: DateStrRange
+): boolean {
+  if (dateRange.length === 0) {
+    return false;
+  }
+  const [startDate, endDate] = dateRange;
   const startTimeStamp = getDateTime(startDate);
   const endTimeStamp = getDateTime(endDate);
   const yearStartDate = `${year}-${wholeYearRangeArr[0]}`;
@@ -111,12 +132,12 @@ function checkYearInRange(year, [startDate, endDate]) {
 
 /**
  * Create a full quarter array that includes the dateRange
- * 
+ *
  * @param {Array} dateRange = [startDate, endDate]
  * @returns ["2019Q1", "2019Q2", "2019Q3", "2019Q4", "2020Q1"]
  */
-function createQuarterArr(dateRange) {
-  const quarterArr = [];
+function createQuarterArr(dateRange: DateStrRange): string[] {
+  const quarterArr: string[] = [];
   if (dateRange.length === 0) {
     return quarterArr;
   }
@@ -127,7 +148,7 @@ function createQuarterArr(dateRange) {
   for (let i = parseInt(startYear, 10); i <= parseInt(endYear, 10); i++) {
     yearArr.push(i.toString());
     const fullQuarter = ["Q1", "Q2", "Q3", "Q4"];
-    fullQuarter.forEach(item => {
+    fullQuarter.forEach((item) => {
       if (checkQuarterInRange(i, item, dateRange)) {
         const quarterStr = `${i}${item}`;
         quarterArr.push(quarterStr);
@@ -145,5 +166,5 @@ export {
   getTimeRangeIntersection,
   checkQuarterInRange,
   checkYearInRange,
-  createQuarterArr
+  createQuarterArr,
 };
