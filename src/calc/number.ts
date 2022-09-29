@@ -1,8 +1,12 @@
-function isRealNumber(num) {
+function isRealNumber(num: any): boolean {
   return typeof num === "number" && !isNaN(num);
 }
 
-function float(num, precision, placeholder = "--") {
+function float(
+  num: number,
+  precision: number,
+  placeholder: string = "--"
+): string {
   const accuracy = isRealNumber(precision) ? precision : 2; // default digit
   if (!isRealNumber(num)) {
     return placeholder;
@@ -10,7 +14,11 @@ function float(num, precision, placeholder = "--") {
   return num.toFixed(accuracy);
 }
 
-function percentage(num, precision, placeholder = "--") {
+function percentage(
+  num: number,
+  precision: number,
+  placeholder: string = "--"
+): string {
   const accuracy = isRealNumber(precision) ? precision : 2;
   if (!isRealNumber(num)) {
     return placeholder;
