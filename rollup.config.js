@@ -41,7 +41,7 @@ const plugins = [
 ];
 
 const bundleOutputOptions = {
-  input: "src/index.js",
+  input: "src/index.ts",
   output: {
     file: isProduction
       ? "dist/js-financal-tools.min.js"
@@ -60,7 +60,7 @@ function walkSync(curPath, callback) {
     const filePath = path.join(curPath, name);
     const stat = fs.statSync(filePath); // stat has a lot of file information
     if (stat.isFile()) {
-      !indexReg.test(filePath) && callback(filePath, stat); // ban "/*/index.js"
+      !indexReg.test(filePath) && callback(filePath, stat); // ban "/*/index.ts"
     } else if (stat.isDirectory()) {
       walkSync(filePath, callback);
     }
@@ -80,7 +80,7 @@ const moduleOutputOptions = {
   output: {
     dir: "modules",
     format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
-    name: "[name].js",
+    name: "[name].ts",
     sourcemap: true,
   },
   plugins,
