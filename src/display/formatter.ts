@@ -2,14 +2,14 @@ import { isRealNumber, float, percentage } from "@/calc/number";
 
 import { getIntPartLength } from "@/util/acquire";
 
-function formatRank(val) {
+function formatRank(val: number | undefined): string {
   if (!isRealNumber(val)) {
     return "--";
   }
   return `No.${val}`;
 }
 
-function formatLongText(val, limit) {
+function formatLongText(val: string | undefined, limit: number): string {
   if (!val) {
     return "--";
   }
@@ -19,56 +19,74 @@ function formatLongText(val, limit) {
   return val;
 }
 
-function formatWithUnit(val, unitStr = "", precision = 2) {
+function formatWithUnit(
+  val: number | undefined,
+  unitStr: string = "",
+  precision: number = 2
+): string {
   if (!isRealNumber(val)) {
     return "--";
   }
-  let num = val;
+  let numStr: string;
   switch (unitStr) {
     case "万":
-      num = float(val / 10 ** 4, precision);
+      numStr = float((val as number) / 10 ** 4, precision);
       break;
     case "亿":
-      num = float(val / 10 ** 8, precision);
+      numStr = float((val as number) / 10 ** 8, precision);
       break;
     default:
+      numStr = String(val);
       break;
   }
-  return `${num}${unitStr}`;
+  return `${numStr}${unitStr}`;
 }
 
-function formatToMonetaryShape(val, precision = 2) {
+function formatToMonetaryShape(
+  val: number | undefined,
+  precision: number = 2
+): string {
   if (!isRealNumber(val)) {
     return "--";
   }
-  const intPartLength = getIntPartLength(val);
+  const intPartLength = getIntPartLength(val as number);
   if (intPartLength > 8) {
-    const num = val / 10 ** 8;
+    const num = (val as number) / 10 ** 8;
     return `${float(num, precision)}亿`;
   }
   if (intPartLength > 4) {
-    const num = val / 10 ** 4;
+    const num = (val as number) / 10 ** 4;
     return `${float(num, precision)}万`;
   }
-  return `${float(val, precision)}`;
+  return `${float(val as number, precision)}`;
 }
 
-function formatToFloat(val, plusSign = "", precision = 2, scale = 1) {
+function formatToFloat(
+  val: number | undefined,
+  plusSign: string = "",
+  precision: number = 2,
+  scale: number = 1
+): string {
   if (!isRealNumber(val)) {
     return "--";
   }
-  const num = val / scale;
+  const num: number = (val as number) / scale;
   if (num > 0) {
     return `${plusSign}${float(num, precision)}`;
   }
   return float(num, precision);
 }
 
-function formatToPercent(val, plusSign = "", precision = 2, scale = 1) {
+function formatToPercent(
+  val: number | undefined,
+  plusSign: string = "",
+  precision: number = 2,
+  scale: number = 1
+): string {
   if (!isRealNumber(val)) {
     return "--";
   }
-  const num = val / scale;
+  const num = (val as number) / scale;
   if (num > 0) {
     return `${plusSign}${percentage(num, precision)}`;
   }
