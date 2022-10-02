@@ -7,6 +7,7 @@
     "dev": "rollup -c",
     "dev:watch": "rollup -c --watch",
     "build": "rollup -c --environment NODE_ENV:production && rollup -c",
+    "types": "tsc -b ./tsconfig.types.json",
     "test": "mocha",
     "cov": "nyc mocha"
   },
