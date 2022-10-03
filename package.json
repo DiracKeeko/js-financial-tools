@@ -4,9 +4,11 @@
   "description": "javascript financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
-    "dev": "rollup -c",
-    "dev:watch": "rollup -c --watch",
-    "build": "rollup -c --environment NODE_ENV:production && rollup -c",
+    "dev": "rollup -c types.rollup.config.js && rollup -c",
+    "dev:watch": "rollup -c types.rollup.config.js && rollup -c --watch",
+    "min": "rollup -c types.rollup.config.js --environment NODE_ENV:production && rollup -c --environment NODE_ENV:production",
+    "build": "npm run dev && npm run min",
+    "types": "rollup -c types.rollup.config.js && rollup -c types.rollup.config.js --environment NODE_ENV:production",
     "test": "mocha",
     "cov": "nyc mocha"
   },

@@ -7,41 +7,42 @@ import eslint from "@rollup/plugin-eslint";
 import alias from "@rollup/plugin-alias";
 import typescript from "@rollup/plugin-typescript";
 
-import dts from 'rollup-plugin-dts'
-
 const fs = require("fs");
 const path = require("path");
-function resolveDir(dir) {
-  return path.join(__dirname, dir);
-}
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = [
-  dts(),
-  // typescript(),
-  // eslint({
-  //   throwOnError: true,
-  //   throwOnWarning: true,
-  //   include: ["src/**"],
-  //   exclude: ["node_modules/**"],
-  // }),
-  // resolve(),
-  // commonjs(),
-  // filesize(),
-  // babel({ babelHelpers: "runtime", exclude: ["node_modules/**"] }),
-  // alias({
-  //   entries: [{ find: "@", replacement: resolveDir("src") }],
-  // }),
-  // isProduction && terser(),
+  typescript(),
+  eslint({
+    throwOnError: true,
+    throwOnWarning: true,
+    include: ["src/**"],
+    exclude: ["node_modules/**"],
+  }),
+  resolve(),
+  commonjs(),
+  filesize(),
+  babel({ babelHelpers: "runtime", exclude: ["node_modules/**"] }),
+  alias(),
+  isProduction && terser(),
 ];
 
 const bundleOutputOptions = {
   input: "src/index.ts",
   output: {
-    file: isProduction
-      ? "dist/js-financal-tools.min.ts"
-      : "dist/js-financial-tools.ts",
+    file: "dist/js-financial-tools.js",
+    format: "umd",
+    exports: "default",
+    name: "jsFinancialTools",
+  },
+  plugins,
+};
+
+const bundleMinOutputOptions = {
+  input: "src/index.ts",
+  output: {
+    file: "dist/js-financal-tools.min.js",
     format: "umd",
     exports: "default",
     name: "jsFinancialTools",
@@ -75,11 +76,11 @@ const moduleOutputOptions = {
   output: {
     dir: "modules",
     format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
-    name: "[name].ts",
+    name: "[name].js",
   },
   plugins,
 };
 
 export default isProduction
-  ? [bundleOutputOptions]
+  ? [bundleMinOutputOptions]
   : [bundleOutputOptions, moduleOutputOptions];
