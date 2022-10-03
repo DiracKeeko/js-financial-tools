@@ -7,7 +7,6 @@
     "dev": "rollup -c",
     "dev:watch": "rollup -c --watch",
     "build": "rollup -c --environment NODE_ENV:production && rollup -c",
-    "types": "tsc -b ./tsconfig.types.json",
     "test": "mocha",
     "cov": "nyc mocha"
   },
@@ -41,6 +40,7 @@
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-eslint": "^8.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.5.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "core-js": "^2.6.12",
     "lodash": "^4.17.21",
@@ -48,11 +48,10 @@
     "nyc": "^15.1.0",
     "power-assert": "^1.6.1",
     "rollup": "^2.68.0",
+    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-filesize": "^9.1.2",
-    "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.4"
   }
 }

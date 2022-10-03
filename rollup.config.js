@@ -5,9 +5,9 @@ import { terser } from "rollup-plugin-terser";
 import commonjs from "@rollup/plugin-commonjs";
 import eslint from "@rollup/plugin-eslint";
 import alias from "@rollup/plugin-alias";
+import typescript from "@rollup/plugin-typescript";
 
-import typescript from "rollup-plugin-typescript";
-import sourceMaps from "rollup-plugin-sourcemaps";
+import dts from 'rollup-plugin-dts'
 
 const fs = require("fs");
 const path = require("path");
@@ -18,38 +18,33 @@ function resolveDir(dir) {
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = [
-  typescript({
-    include: ["src/**"],
-    exclude: "node_modules/**",
-    typescript: require("typescript"),
-  }),
-  sourceMaps(),
-  eslint({
-    throwOnError: true,
-    throwOnWarning: true,
-    include: ["src/**"],
-    exclude: ["node_modules/**"],
-  }),
-  resolve(),
-  commonjs(),
-  filesize(),
-  babel({ babelHelpers: "runtime", exclude: ["node_modules/**"] }),
-  alias({
-    entries: [{ find: "@", replacement: resolveDir("src") }],
-  }),
-  isProduction && terser(),
+  dts(),
+  // typescript(),
+  // eslint({
+  //   throwOnError: true,
+  //   throwOnWarning: true,
+  //   include: ["src/**"],
+  //   exclude: ["node_modules/**"],
+  // }),
+  // resolve(),
+  // commonjs(),
+  // filesize(),
+  // babel({ babelHelpers: "runtime", exclude: ["node_modules/**"] }),
+  // alias({
+  //   entries: [{ find: "@", replacement: resolveDir("src") }],
+  // }),
+  // isProduction && terser(),
 ];
 
 const bundleOutputOptions = {
   input: "src/index.ts",
   output: {
     file: isProduction
-      ? "dist/js-financal-tools.min.js"
-      : "dist/js-financial-tools.js",
+      ? "dist/js-financal-tools.min.ts"
+      : "dist/js-financial-tools.ts",
     format: "umd",
     exports: "default",
     name: "jsFinancialTools",
-    sourcemap: true,
   },
   plugins,
 };
@@ -69,7 +64,7 @@ function walkSync(curPath, callback) {
 
 const inputObj = {};
 walkSync("src", function (filePath, stat) {
-  const fileNameReg = /\\([a-z]+)\.js$/;
+  const fileNameReg = /\\([a-z]+)\.ts$/;
   filePath.replace(fileNameReg, (matchStr, fileName) => {
     inputObj[fileName] = filePath;
   });
@@ -81,7 +76,6 @@ const moduleOutputOptions = {
     dir: "modules",
     format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
     name: "[name].ts",
-    sourcemap: true,
   },
   plugins,
 };
