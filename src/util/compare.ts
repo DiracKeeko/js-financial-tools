@@ -1,6 +1,6 @@
 import { isRealNumber } from "@/calc/number";
 
-function gt(a, b) {
+function gt(a: number, b: number): boolean {
   if (!isRealNumber(b)) {
     return true;
   }
@@ -10,7 +10,7 @@ function gt(a, b) {
   return a > b;
 }
 
-function lte(a, b) {
+function lte(a: number, b: number): boolean {
   if (!isRealNumber(b)) {
     return true;
   }
