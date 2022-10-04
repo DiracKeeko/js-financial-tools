@@ -1,6 +1,6 @@
 import { isRealNumber } from "@/calc/number";
 
-function calcMax3Concenttration(arr) {
+function calcMax3Concentration(arr: number[]): number | undefined {
   const numberArr = arr.filter((item) => isRealNumber(item));
   if (numberArr.length === 0) {
     return undefined;
@@ -12,4 +12,4 @@ function calcMax3Concenttration(arr) {
   return sumMax3 / sumAll;
 }
 
-export { calcMax3Concenttration };
+export { calcMax3Concentration };
