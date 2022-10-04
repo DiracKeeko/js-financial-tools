@@ -75,7 +75,8 @@ const moduleOutputOptions = {
   input: inputObj,
   output: {
     dir: "modules",
-    format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
+    format: "esm", // use "esm" format in version 2.0.0; ("cjs" format in version 1.x.x)
+    // ↑ cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
     name: "[name].js",
   },
   plugins,
