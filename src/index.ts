@@ -1,9 +1,9 @@
-// import * as calc from "./calc";
+import * as calc from "./calc";
 import * as display from "./display";
-// import * as util from "./util";
+import * as util from "./util";
 
 export default {
-  // ...calc,
+  ...calc,
   ...display,
-  // ...util
+  ...util
 }
