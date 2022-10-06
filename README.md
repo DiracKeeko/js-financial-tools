@@ -8,7 +8,12 @@
 
 - Simple API, support modular import
 - No dependencies
-- Unit function test coverage rate and line output coverage rate are both 100%
+- ~~Unit function test coverage rate and line output coverage rate are both 100%~~
+
+### @2.0.0 
+- ↑ refactor this project by typescript, now ts project can use those tools directly
+- modular outputs format were set to "esm" ("cjs" format in version 1.x.x)
+- ↓ mocha unit test was removed because of the conflict between mocha ts config and compilation config
 
 ## Install
 
@@ -100,3 +105,5 @@ ES module:
 ```javascript
 import { isRealNumber } from 'js-financial-tools/modules/number';
 ```
+
+
