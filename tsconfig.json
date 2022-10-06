@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.base",
   "compilerOptions": {
     "target": "es6",
     "useDefineForClassFields": true,
@@ -12,7 +11,11 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }
