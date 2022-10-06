@@ -22,7 +22,10 @@
   [ [202108220900, numberA1, numberB1], [202108220901, numberA2, numberB2], ..., [202108221500, undefined, undefined] ] 
   // itemArrLength = 3
 */
-function completeStockTimeDataArr(TimeDataArr, itemArrLength = 2) {
+function completeStockTimeDataArr(
+  TimeDataArr: number[][],
+  itemArrLength: number = 2
+): number[][] {
   const data = TimeDataArr.map((item) => {
     return item.slice(0, itemArrLength);
   });
@@ -96,8 +99,22 @@ return data :
     ...
   ] 
 */
-function completeStockTimeDataObjArr(TimeDataObjArr) {
-  const data = TimeDataObjArr.map((item) => {
+
+type TimeDataObj = {
+  date: string;
+  time: string;
+  change: number;
+  valuation: number;
+};
+
+type ResObj = {
+  x: number;
+  y: number | undefined;
+  z: number | undefined;
+};
+
+function completeStockTimeDataObjArr(TimeDataObjArr: TimeDataObj[]): ResObj[] {
+  const data: ResObj[] = TimeDataObjArr.map((item) => {
     return {
       x: Number(`${item.date}${item.time.slice(0, 4)}`),
       y: item.change,

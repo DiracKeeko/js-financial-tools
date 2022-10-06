@@ -1,12 +1,14 @@
 {
   "name": "js-financial-tools",
-  "version": "1.0.15",
-  "description": "javascript financial tools",
+  "version": "2.0.0",
+  "description": "javascript (& typescript) financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
-    "dev": "rollup -c",
-    "dev:watch": "rollup -c --watch",
-    "build": "rollup -c --environment NODE_ENV:production && rollup -c",
+    "dev": "rollup -c types.rollup.config.js && rollup -c",
+    "dev:watch": "rollup -c types.rollup.config.js && rollup -c --watch",
+    "min": "rollup -c types.rollup.config.js --environment NODE_ENV:production && rollup -c --environment NODE_ENV:production",
+    "build": "npm run dev && npm run min",
+    "types": "rollup -c types.rollup.config.js && rollup -c types.rollup.config.js --environment NODE_ENV:production",
     "test": "mocha",
     "cov": "nyc mocha"
   },
@@ -17,6 +19,7 @@
   "keywords": [
     "front-end",
     "js",
+    "ts",
     "financial",
     "fund",
     "stock",
@@ -40,6 +43,7 @@
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-eslint": "^8.0.1",
     "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.5.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "core-js": "^2.6.12",
     "lodash": "^4.17.21",
@@ -47,7 +51,10 @@
     "nyc": "^15.1.0",
     "power-assert": "^1.6.1",
     "rollup": "^2.68.0",
+    "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-filesize": "^9.1.2",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4"
   }
 }

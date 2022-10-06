@@ -5,16 +5,15 @@ import { terser } from "rollup-plugin-terser";
 import commonjs from "@rollup/plugin-commonjs";
 import eslint from "@rollup/plugin-eslint";
 import alias from "@rollup/plugin-alias";
+import typescript from "@rollup/plugin-typescript";
 
 const fs = require("fs");
 const path = require("path");
-function resolveDir(dir) {
-  return path.join(__dirname, dir);
-}
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = [
+  typescript(),
   eslint({
     throwOnError: true,
     throwOnWarning: true,
@@ -25,18 +24,25 @@ const plugins = [
   commonjs(),
   filesize(),
   babel({ babelHelpers: "runtime", exclude: ["node_modules/**"] }),
-  alias({
-    entries: [{ find: "@", replacement: resolveDir("src") }],
-  }),
+  alias(),
   isProduction && terser(),
 ];
 
 const bundleOutputOptions = {
-  input: "src/index.js",
+  input: "src/index.ts",
   output: {
-    file: isProduction
-      ? "dist/js-financal-tools.min.js"
-      : "dist/js-financial-tools.js",
+    file: "dist/js-financial-tools.js",
+    format: "umd",
+    exports: "default",
+    name: "jsFinancialTools",
+  },
+  plugins,
+};
+
+const bundleMinOutputOptions = {
+  input: "src/index.ts",
+  output: {
+    file: "dist/js-financal-tools.min.js",
     format: "umd",
     exports: "default",
     name: "jsFinancialTools",
@@ -50,7 +56,7 @@ function walkSync(curPath, callback) {
     const filePath = path.join(curPath, name);
     const stat = fs.statSync(filePath); // stat has a lot of file information
     if (stat.isFile()) {
-      !indexReg.test(filePath) && callback(filePath, stat); // ban "/*/index.js"
+      !indexReg.test(filePath) && callback(filePath, stat); // ban "/*/index.ts"
     } else if (stat.isDirectory()) {
       walkSync(filePath, callback);
     }
@@ -59,7 +65,7 @@ function walkSync(curPath, callback) {
 
 const inputObj = {};
 walkSync("src", function (filePath, stat) {
-  const fileNameReg = /\\([a-z]+)\.js$/;
+  const fileNameReg = /\\([a-z]+)\.ts$/;
   filePath.replace(fileNameReg, (matchStr, fileName) => {
     inputObj[fileName] = filePath;
   });
@@ -69,12 +75,13 @@ const moduleOutputOptions = {
   input: inputObj,
   output: {
     dir: "modules",
-    format: "cjs", // cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
+    format: "esm", // use "esm" format in version 2.0.0; ("cjs" format in version 1.x.x)
+    // ↑ cjs or esm; UMD and IIFE output formats are not supported for code-splitting builds.
     name: "[name].js",
   },
   plugins,
 };
 
 export default isProduction
-  ? [bundleOutputOptions]
+  ? [bundleMinOutputOptions]
   : [bundleOutputOptions, moduleOutputOptions];
