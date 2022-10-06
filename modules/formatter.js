@@ -1,119 +1,74 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-require('./es6.array.slice-b5a88791.js');
-var number = require('./number.js');
-var acquire = require('./acquire.js');
-require('./_to-absolute-index-eab53ef4.js');
-require('./es6.regexp.to-string-a901b36e.js');
-require('./constant.js');
+import { isRealNumber, float, percentage } from './number.js';
+import { getIntPartLength } from './acquire.js';
+import './constant.js';
 
 function formatRank(val) {
-  if (!number.isRealNumber(val)) {
-    return "--";
-  }
-
-  return "No.".concat(val);
+    if (!isRealNumber(val)) {
+        return "--";
+    }
+    return `No.${val}`;
 }
-
 function formatLongText(val, limit) {
-  if (!val) {
-    return "--";
-  }
-
-  if (val.length > limit) {
-    return "".concat(val.slice(0, limit), "...");
-  }
-
-  return val;
+    if (!val) {
+        return "--";
+    }
+    if (val.length > limit) {
+        return `${val.slice(0, limit)}...`;
+    }
+    return val;
+}
+function formatWithUnit(val, unitStr = "", precision = 2) {
+    if (!isRealNumber(val)) {
+        return "--";
+    }
+    let numStr;
+    switch (unitStr) {
+        case "万":
+            numStr = float(val / Math.pow(10, 4), precision);
+            break;
+        case "亿":
+            numStr = float(val / Math.pow(10, 8), precision);
+            break;
+        default:
+            numStr = String(val);
+            break;
+    }
+    return `${numStr}${unitStr}`;
+}
+function formatToMonetaryShape(val, precision = 2) {
+    if (!isRealNumber(val)) {
+        return "--";
+    }
+    const intPartLength = getIntPartLength(val);
+    if (intPartLength > 8) {
+        const num = val / Math.pow(10, 8);
+        return `${float(num, precision)}亿`;
+    }
+    if (intPartLength > 4) {
+        const num = val / Math.pow(10, 4);
+        return `${float(num, precision)}万`;
+    }
+    return `${float(val, precision)}`;
+}
+function formatToFloat(val, plusSign = "", precision = 2, scale = 1) {
+    if (!isRealNumber(val)) {
+        return "--";
+    }
+    const num = val / scale;
+    if (num > 0) {
+        return `${plusSign}${float(num, precision)}`;
+    }
+    return float(num, precision);
+}
+function formatToPercent(val, plusSign = "", precision = 2, scale = 1) {
+    if (!isRealNumber(val)) {
+        return "--";
+    }
+    const num = val / scale;
+    if (num > 0) {
+        return `${plusSign}${percentage(num, precision)}`;
+    }
+    return percentage(num, precision);
 }
 
-function formatWithUnit(val) {
-  var unitStr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-
-  if (!number.isRealNumber(val)) {
-    return "--";
-  }
-
-  var num = val;
-
-  switch (unitStr) {
-    case "万":
-      num = number.float(val / Math.pow(10, 4), precision);
-      break;
-
-    case "亿":
-      num = number.float(val / Math.pow(10, 8), precision);
-      break;
-  }
-
-  return "".concat(num).concat(unitStr);
-}
-
-function formatToMonetaryShape(val) {
-  var precision = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
-
-  if (!number.isRealNumber(val)) {
-    return "--";
-  }
-
-  var intPartLength = acquire.getIntPartLength(val);
-
-  if (intPartLength > 8) {
-    var num = val / Math.pow(10, 8);
-    return "".concat(number.float(num, precision), "\u4EBF");
-  }
-
-  if (intPartLength > 4) {
-    var _num = val / Math.pow(10, 4);
-
-    return "".concat(number.float(_num, precision), "\u4E07");
-  }
-
-  return "".concat(number.float(val, precision));
-}
-
-function formatToFloat(val) {
-  var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-  var scale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
-
-  if (!number.isRealNumber(val)) {
-    return "--";
-  }
-
-  var num = val / scale;
-
-  if (num > 0) {
-    return "".concat(plusSign).concat(number.float(num, precision));
-  }
-
-  return number.float(num, precision);
-}
-
-function formatToPercent(val) {
-  var plusSign = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
-  var precision = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2;
-  var scale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
-
-  if (!number.isRealNumber(val)) {
-    return "--";
-  }
-
-  var num = val / scale;
-
-  if (num > 0) {
-    return "".concat(plusSign).concat(number.percentage(num, precision));
-  }
-
-  return number.percentage(num, precision);
-}
-
-exports.formatLongText = formatLongText;
-exports.formatRank = formatRank;
-exports.formatToFloat = formatToFloat;
-exports.formatToMonetaryShape = formatToMonetaryShape;
-exports.formatToPercent = formatToPercent;
-exports.formatWithUnit = formatWithUnit;
+export { formatLongText, formatRank, formatToFloat, formatToMonetaryShape, formatToPercent, formatWithUnit };

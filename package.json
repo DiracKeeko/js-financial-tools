@@ -1,7 +1,7 @@
 {
   "name": "js-financial-tools",
-  "version": "1.0.15",
-  "description": "javascript financial tools",
+  "version": "2.0.0",
+  "description": "javascript (& typescript) financial tools",
   "main": "dist/js-financial-tools.js",
   "scripts": {
     "dev": "rollup -c types.rollup.config.js && rollup -c",
@@ -19,6 +19,7 @@
   "keywords": [
     "front-end",
     "js",
+    "ts",
     "financial",
     "fund",
     "stock",
