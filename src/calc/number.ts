@@ -3,27 +3,27 @@ function isRealNumber(num: any): boolean {
 }
 
 function float(
-  num: number,
-  precision: number,
+  num: number | string | undefined | null,
+  precision: number = 2,
   placeholder: string = "--"
 ): string {
   const accuracy = isRealNumber(precision) ? precision : 2; // default digit
   if (!isRealNumber(num)) {
     return placeholder;
   }
-  return num.toFixed(accuracy);
+  return (num as number).toFixed(accuracy);
 }
 
 function percentage(
-  num: number,
-  precision: number,
+  num: number | string | undefined | null,
+  precision: number = 2,
   placeholder: string = "--"
 ): string {
   const accuracy = isRealNumber(precision) ? precision : 2;
   if (!isRealNumber(num)) {
     return placeholder;
   }
-  return `${(num * 100).toFixed(accuracy)}%`;
+  return `${((num as number) * 100).toFixed(accuracy)}%`;
 }
 
 export { isRealNumber, float, percentage };
