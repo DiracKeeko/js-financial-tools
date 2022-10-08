@@ -60,7 +60,7 @@ describe("number test", () => {
       expect(res === "0.112");
     });
     it("float 08", () => {
-      const res = float(22);
+      const res = float(22, "3");
       expect(res === "22.00");
     });
   });
@@ -91,7 +91,7 @@ describe("number test", () => {
       expect(res === "11.22%");
     });
     it("percentage 07", () => {
-      const res = percentage(-0.112233);
+      const res = percentage(-0.112233, "3");
       expect(res === "-11.22%");
     });
     it("percentage 08", () => {
