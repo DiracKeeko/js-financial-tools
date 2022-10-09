@@ -1,7 +1,8 @@
 import { acquire } from "@/util";
 import { getDateTime } from "@/util/constant";
-import assert from "assert";
-import { isEqual } from "lodash";
+
+type DateRange = [number, number];
+type DateStrRange = [string, string] | [];
 
 const {
   getIntPartLength,
@@ -17,45 +18,45 @@ const {
 describe("acquire test", () => {
   describe("getIntPartLength", () => {
     it("getIntPartLength 01", () => {
-      assert(getIntPartLength(12) === 2);
+      expect(getIntPartLength(12) === 2);
     });
     it("getIntPartLength 02", () => {
-      assert(getIntPartLength(128) === 3);
+      expect(getIntPartLength(128) === 3);
     });
     it("getIntPartLength 03", () => {
-      assert(getIntPartLength(128.4) === 3);
+      expect(getIntPartLength(128.4) === 3);
     });
     it("getIntPartLength 04", () => {
-      assert(getIntPartLength(-1100.23) === 4);
+      expect(getIntPartLength(-1100.23) === 4);
     });
   });
 
   describe("getMonetaryUnit", () => {
     it("getMonetaryUnit 01", () => {
-      assert(getMonetaryUnit("13") === "");
+      expect(getMonetaryUnit("13") === "");
     });
     it("getMonetaryUnit 02", () => {
-      assert(getMonetaryUnit(13.3) === "");
+      expect(getMonetaryUnit(13.3) === "");
     });
     it("getMonetaryUnit 03", () => {
-      assert(getMonetaryUnit(2 * 10 ** 9) === "亿");
+      expect(getMonetaryUnit(2 * 10 ** 9) === "亿");
     });
     it("getMonetaryUnit 04", () => {
-      assert(getMonetaryUnit(2 * 10 ** 6) === "万");
+      expect(getMonetaryUnit(2 * 10 ** 6) === "万");
     });
   });
 
   describe("getMaxDate", () => {
     it("getMaxDate 01", () => {
       const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"];
-      assert(getMaxDate(dateArr) === "2022-01-01");
+      expect(getMaxDate(dateArr) === "2022-01-01");
     });
   });
 
   describe("getMinDate", () => {
     it("getMinDate 01", () => {
       const dateArr = ["2022-01-01", "2019-10-12", "2018-05-18"];
-      assert(getMinDate(dateArr) === "2018-05-18");
+      expect(getMinDate(dateArr) === "2018-05-18");
     });
   });
 
@@ -63,50 +64,73 @@ describe("acquire test", () => {
     it("getTimeRangeIntersection 01", () => {
       const dateRange1 = [getDateTime("2021-03-03"), getDateTime("2021-06-06")];
       const dateRange2 = [getDateTime("2021-05-05"), getDateTime("2021-08-08")];
-      const dateRangeIntersection = [getDateTime("2021-05-05"), getDateTime("2021-06-06")];
-      const res = getTimeRangeIntersection(dateRange1, dateRange2);
-      assert(isEqual(res, dateRangeIntersection));
+      const dateRangeIntersection = [
+        getDateTime("2021-05-05"),
+        getDateTime("2021-06-06"),
+      ];
+      const res = getTimeRangeIntersection(
+        dateRange1 as DateRange,
+        dateRange2 as DateRange
+      );
+      expect(res).toEqual(dateRangeIntersection);
     });
     it("getTimeRangeIntersection 02", () => {
       const dateRange1 = [getDateTime("2021-03-03"), getDateTime("2021-05-05")];
       const dateRange2 = [getDateTime("2021-06-06"), getDateTime("2021-08-08")];
-      const dateRangeIntersection = [];
-      const res = getTimeRangeIntersection(dateRange1, dateRange2);
-      assert(isEqual(res, dateRangeIntersection));
+      const dateRangeIntersection: [] = [];
+      const res = getTimeRangeIntersection(
+        dateRange1 as DateRange,
+        dateRange2 as DateRange
+      );
+      expect(res).toEqual(dateRangeIntersection);
     });
   });
 
   describe("checkQuarterInRange", () => {
     it("checkQuarterInRange 01", () => {
       const dateRange = ["2021-12-12", "2022-04-06"];
-      assert(checkQuarterInRange(2022, "Q1", dateRange) === true);
+      expect(
+        checkQuarterInRange(2022, "Q1", dateRange as DateStrRange) === true
+      );
     });
     it("checkQuarterInRange 02", () => {
       const dateRange = ["2021-12-12", "2022-04-06"];
-      assert(checkQuarterInRange(2021, "Q4", dateRange) === false);
+      expect(
+        checkQuarterInRange(2021, "Q4", dateRange as DateStrRange) === false
+      );
+    });
+    it("checkQuarterInRange 03", () => {
+      const dateRange: [] = [];
+      expect(
+        checkQuarterInRange(2021, "Q4", dateRange as DateStrRange) === false
+      );
     });
   });
 
   describe("checkYearInRange", () => {
     it("checkYearInRange 01", () => {
       const dateRange = ["2020-12-12", "2022-04-06"];
-      assert(checkYearInRange(2021, dateRange) === true);
+      expect(checkYearInRange(2021, dateRange as DateStrRange) === true);
     });
     it("checkYearInRange 02", () => {
       const dateRange = ["2020-12-12", "2022-04-06"];
-      assert(checkYearInRange(2020, dateRange) === false);
+      expect(checkYearInRange(2020, dateRange as DateStrRange) === false);
+    });
+    it("checkYearInRange 03", () => {
+      const dateRange: [] = [];
+      expect(checkYearInRange(2020, dateRange as DateStrRange) === false);
     });
   });
 
   describe("createQuarterArr", () => {
     it("createQuarterArr 01", () => {
-      const dateRange = [];
-      assert(isEqual(createQuarterArr(dateRange), []));
+      const dateRange: [] = [];
+      expect(createQuarterArr(dateRange as DateStrRange)).toEqual([]);
     });
     it("createQuarterArr 02", () => {
       const dateRange = ["2020-12-12", "2022-04-06"];
       const expectedRes = ["2021Q1", "2021Q2", "2021Q3", "2021Q4", "2022Q1"];
-      assert(isEqual(createQuarterArr(dateRange), expectedRes));
+      expect(createQuarterArr(dateRange as DateStrRange)).toEqual(expectedRes);
     });
   });
 });
