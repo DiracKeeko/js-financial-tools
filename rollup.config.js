@@ -13,7 +13,7 @@ const path = require("path");
 const isProduction = process.env.NODE_ENV === "production";
 
 const plugins = [
-  typescript(),
+  typescript({ exclude: ["test"] }),
   eslint({
     throwOnError: true,
     throwOnWarning: true,
