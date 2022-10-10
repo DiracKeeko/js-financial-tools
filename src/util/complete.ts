@@ -23,9 +23,9 @@
   // itemArrLength = 3
 */
 function completeStockTimeDataArr(
-  TimeDataArr: number[][],
+  TimeDataArr: (number | undefined)[][],
   itemArrLength: number = 2
-): number[][] {
+): (number | undefined)[][] {
   const data = TimeDataArr.map((item) => {
     return item.slice(0, itemArrLength);
   });
