@@ -1,23 +1,23 @@
 import { isRealNumber } from "@/calc/number";
 
-function gt(a: number, b: number): boolean {
+function gt(a: number | undefined, b: number | undefined): boolean {
   if (!isRealNumber(b)) {
     return true;
   }
   if (!isRealNumber(a) && isRealNumber(b)) {
     return false;
   }
-  return a > b;
+  return (a as number) > (b as number);
 }
 
-function lte(a: number, b: number): boolean {
+function lte(a: number | undefined, b: number | undefined): boolean {
   if (!isRealNumber(b)) {
     return true;
   }
   if (!isRealNumber(a) && isRealNumber(b)) {
     return false;
   }
-  return a <= b;
+  return (a as number) <= (b as number);
 }
 
 export { gt, lte };
