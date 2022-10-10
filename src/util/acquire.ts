@@ -13,9 +13,9 @@ function getIntPartLength(num: number): number {
   return Math.floor(Math.log10(Math.abs(num))) + 1;
 }
 
-function getMonetaryUnit(val: number) {
+function getMonetaryUnit(val: number | string | undefined) {
   if (isRealNumber(val)) {
-    const intPartLength = getIntPartLength(val);
+    const intPartLength = getIntPartLength(val as number);
     if (intPartLength > 8) {
       return "亿";
     }

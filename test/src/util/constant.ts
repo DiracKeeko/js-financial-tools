@@ -1,4 +1,10 @@
-const completeStockTimeDataArrRes01 = [
+type ResObj = {
+  x: number;
+  y: number | undefined;
+  z: number | undefined;
+};
+
+const completeStockTimeDataArrRes01: (number | undefined)[][] = [
   [202108220900, 0.1],
   [202108220901, 0.2],
   [202108220902, undefined],
@@ -272,7 +278,7 @@ const completeStockTimeDataArrRes01 = [
   [202108221500, undefined],
 ];
 
-const completeStockTimeDataArrRes02 = [
+const completeStockTimeDataArrRes02: (number | undefined)[][] = [
   [202108220900, 0.1, 0.11],
   [202108220901, 0.2, 0.22],
   [202108220902, undefined, undefined],
@@ -546,7 +552,7 @@ const completeStockTimeDataArrRes02 = [
   [202108221500, undefined, undefined],
 ];
 
-const completeStockTimeDataArrExample03 = [
+const completeStockTimeDataArrExample03: (number | undefined)[][] = [
   [202108220900, 0.1],
   [202108220901, 0.2],
   [202108220902, undefined],
@@ -700,7 +706,7 @@ const completeStockTimeDataArrExample03 = [
   [202108221130, undefined],
 ];
 
-const completeStockTimeDataObjArrRes01 = [
+const completeStockTimeDataObjArrRes01: ResObj[] = [
   { x: 202108220900, y: -0.11, z: 1.11 },
   { x: 202108220901, y: -0.22, z: 2.22 },
   { x: 202108220902, y: undefined, z: undefined },
@@ -974,7 +980,7 @@ const completeStockTimeDataObjArrRes01 = [
   { x: 202108221500, y: undefined, z: undefined },
 ];
 
-const completeStockTimeDataObjArrRes02 = [
+const completeStockTimeDataObjArrRes02: ResObj[] = [
   { x: 202108221129, y: -0.11, z: 1.11 },
   { x: 202108221130, y: -0.22, z: 2.22 },
   { x: 202108221301, y: undefined, z: undefined },

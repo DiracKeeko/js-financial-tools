@@ -1,7 +1,7 @@
 declare type DateRange = [number, number];
 declare type DateStrRange = [string, string] | [];
 declare function getIntPartLength(num: number): number;
-declare function getMonetaryUnit(val: number): "亿" | "万" | "";
+declare function getMonetaryUnit(val: number | string | undefined): "亿" | "万" | "";
 /**
  *
  * @param {Array} dateArr

@@ -1,6 +1,4 @@
 import { complete } from "@/util";
-import assert from "assert";
-import { isEqual } from "lodash";
 
 import {
   completeStockTimeDataArrRes01,
@@ -8,7 +6,6 @@ import {
   completeStockTimeDataArrExample03,
   completeStockTimeDataObjArrRes01,
   completeStockTimeDataObjArrRes02,
-  completeStockTimeDataObjArrExample02,
 } from "./constant";
 
 const { completeStockTimeDataArr, completeStockTimeDataObjArr } = complete;
@@ -21,7 +18,7 @@ describe("complete test", () => {
         [202108220901, 0.2],
       ];
       const res = completeStockTimeDataArr(testCase);
-      assert(isEqual(res, completeStockTimeDataArrRes01));
+      expect(res).toEqual(completeStockTimeDataArrRes01);
     });
     it("completeStockTimeDataArr 02", () => {
       const testCase = [
@@ -29,12 +26,12 @@ describe("complete test", () => {
         [202108220901, 0.2, 0.22],
       ];
       const res = completeStockTimeDataArr(testCase, 3);
-      assert(isEqual(res, completeStockTimeDataArrRes02));
+      expect(res).toEqual(completeStockTimeDataArrRes02);
     });
     it("completeStockTimeDataArr 03", () => {
       const testCase = completeStockTimeDataArrExample03;
       const res = completeStockTimeDataArr(testCase);
-      assert(isEqual(res, completeStockTimeDataArrRes01));
+      expect(res).toEqual(completeStockTimeDataArrRes01);
     });
   });
 
@@ -55,7 +52,7 @@ describe("complete test", () => {
         },
       ];
       const res = completeStockTimeDataObjArr(testCase);
-      assert(isEqual(res, completeStockTimeDataObjArrRes01));
+      expect(res).toEqual(completeStockTimeDataObjArrRes01);
     });
     it("completeStockTimeDataObjArr 02", () => {
       const testCase = [
@@ -73,7 +70,7 @@ describe("complete test", () => {
         },
       ];
       const res = completeStockTimeDataObjArr(testCase);
-      assert(isEqual(res, completeStockTimeDataObjArrRes02));
+      expect(res).toEqual(completeStockTimeDataObjArrRes02);
     });
   });
 });

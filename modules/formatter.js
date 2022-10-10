@@ -8,7 +8,7 @@ function formatRank(val) {
     }
     return `No.${val}`;
 }
-function formatLongText(val, limit) {
+function formatLongText(val, limit = 3) {
     if (!val) {
         return "--";
     }

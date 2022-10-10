@@ -1,4 +1,4 @@
-declare function gt(a: number, b: number): boolean;
-declare function lte(a: number, b: number): boolean;
+declare function gt(a: number | undefined, b: number | undefined): boolean;
+declare function lte(a: number | undefined, b: number | undefined): boolean;
 
 export { gt, lte };

@@ -1,4 +1,4 @@
-declare function completeStockTimeDataArr(TimeDataArr: number[][], itemArrLength?: number): number[][];
+declare function completeStockTimeDataArr(TimeDataArr: (number | undefined)[][], itemArrLength?: number): (number | undefined)[][];
 declare type TimeDataObj = {
     date: string;
     time: string;

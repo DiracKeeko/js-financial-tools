@@ -2,14 +2,14 @@ import { isRealNumber, float, percentage } from "@/calc/number";
 
 import { getIntPartLength } from "@/util/acquire";
 
-function formatRank(val: number | undefined): string {
+function formatRank(val: number | string | undefined): string {
   if (!isRealNumber(val)) {
     return "--";
   }
   return `No.${val}`;
 }
 
-function formatLongText(val: string | undefined, limit: number): string {
+function formatLongText(val: string | undefined, limit: number = 3): string {
   if (!val) {
     return "--";
   }
@@ -43,7 +43,7 @@ function formatWithUnit(
 }
 
 function formatToMonetaryShape(
-  val: number | undefined,
+  val: number | undefined | string,
   precision: number = 2
 ): string {
   if (!isRealNumber(val)) {
