@@ -1,6 +1,6 @@
 declare function isRealNumber(num: any): boolean;
-declare function float(num: number, precision: number, placeholder?: string): string;
-declare function percentage(num: number, precision: number, placeholder?: string): string;
+declare function float(num: number | string | undefined | null, precision?: number | string, placeholder?: string): string;
+declare function percentage(num: number | string | undefined | null, precision?: number | string, placeholder?: string): string;
 
 declare const number_isRealNumber: typeof isRealNumber;
 declare const number_float: typeof float;
@@ -22,10 +22,10 @@ declare namespace fund {
   };
 }
 
-declare function formatRank(val: number | undefined): string;
-declare function formatLongText(val: string | undefined, limit: number): string;
+declare function formatRank(val: number | string | undefined): string;
+declare function formatLongText(val: string | undefined, limit?: number): string;
 declare function formatWithUnit(val: number | undefined, unitStr?: string, precision?: number): string;
-declare function formatToMonetaryShape(val: number | undefined, precision?: number): string;
+declare function formatToMonetaryShape(val: number | undefined | string, precision?: number): string;
 declare function formatToFloat(val: number | undefined, plusSign?: string, precision?: number, scale?: number): string;
 declare function formatToPercent(val: number | undefined, plusSign?: string, precision?: number, scale?: number): string;
 
@@ -49,7 +49,7 @@ declare namespace formatter {
 declare type DateRange = [number, number];
 declare type DateStrRange = [string, string] | [];
 declare function getIntPartLength(num: number): number;
-declare function getMonetaryUnit(val: number): "亿" | "万" | "";
+declare function getMonetaryUnit(val: number | string | undefined): "亿" | "万" | "";
 /**
  *
  * @param {Array} dateArr
@@ -108,8 +108,8 @@ declare namespace acquire {
   };
 }
 
-declare function gt(a: number, b: number): boolean;
-declare function lte(a: number, b: number): boolean;
+declare function gt(a: number | undefined, b: number | undefined): boolean;
+declare function lte(a: number | undefined, b: number | undefined): boolean;
 
 declare const compare_gt: typeof gt;
 declare const compare_lte: typeof lte;
@@ -120,7 +120,7 @@ declare namespace compare {
   };
 }
 
-declare function completeStockTimeDataArr(TimeDataArr: number[][], itemArrLength?: number): number[][];
+declare function completeStockTimeDataArr(TimeDataArr: (number | undefined)[][], itemArrLength?: number): (number | undefined)[][];
 declare type TimeDataObj = {
     date: string;
     time: string;

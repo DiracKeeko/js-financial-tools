@@ -10,3 +10,8 @@ If we use mocha to do unit test in a typescript project, the module must be set 
 (The official examples are as follows:
 https://github.com/mochajs/mocha-examples/tree/master/packages/typescript)
 This requirement lead to a conflict to compilation config, so I removed the unit test temporarily.
+
+
+## @2.0.1
+Replace mocha by ts-jest, refactor *.jest.ts, fix *.ts.
+Unit function test coverage rate and line output coverage rate are both 100% again.
