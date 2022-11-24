@@ -70,5 +70,11 @@ function formatToPercent(val, plusSign = "", precision = 2, scale = 1) {
     }
     return percentage(num, precision);
 }
+function trimJsonStr(jsonStr) {
+    return jsonStr
+        .replace(/\n/g, "")
+        .replace(/\r/g, "")
+        .replace(/\s|\xA0/g, "");
+}
 
-export { formatLongText, formatRank, formatToFloat, formatToMonetaryShape, formatToPercent, formatWithUnit };
+export { formatLongText, formatRank, formatToFloat, formatToMonetaryShape, formatToPercent, formatWithUnit, trimJsonStr };

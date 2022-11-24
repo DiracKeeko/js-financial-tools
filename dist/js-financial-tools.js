@@ -271,6 +271,12 @@
         }
         return percentage(num, precision);
     }
+    function trimJsonStr(jsonStr) {
+        return jsonStr
+            .replace(/\n/g, "")
+            .replace(/\r/g, "")
+            .replace(/\s|\xA0/g, "");
+    }
 
     var formatter = /*#__PURE__*/Object.freeze({
         __proto__: null,
@@ -279,7 +285,8 @@
         formatWithUnit: formatWithUnit,
         formatToMonetaryShape: formatToMonetaryShape,
         formatToFloat: formatToFloat,
-        formatToPercent: formatToPercent
+        formatToPercent: formatToPercent,
+        trimJsonStr: trimJsonStr
     });
 
     var display = /*#__PURE__*/Object.freeze({

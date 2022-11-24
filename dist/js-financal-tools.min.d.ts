@@ -28,6 +28,7 @@ declare function formatWithUnit(val: number | undefined, unitStr?: string, preci
 declare function formatToMonetaryShape(val: number | undefined | string, precision?: number): string;
 declare function formatToFloat(val: number | undefined, plusSign?: string, precision?: number, scale?: number): string;
 declare function formatToPercent(val: number | undefined, plusSign?: string, precision?: number, scale?: number): string;
+declare function trimJsonStr(jsonStr: string): string;
 
 declare const formatter_formatRank: typeof formatRank;
 declare const formatter_formatLongText: typeof formatLongText;
@@ -35,6 +36,7 @@ declare const formatter_formatWithUnit: typeof formatWithUnit;
 declare const formatter_formatToMonetaryShape: typeof formatToMonetaryShape;
 declare const formatter_formatToFloat: typeof formatToFloat;
 declare const formatter_formatToPercent: typeof formatToPercent;
+declare const formatter_trimJsonStr: typeof trimJsonStr;
 declare namespace formatter {
   export {
     formatter_formatRank as formatRank,
@@ -43,6 +45,7 @@ declare namespace formatter {
     formatter_formatToMonetaryShape as formatToMonetaryShape,
     formatter_formatToFloat as formatToFloat,
     formatter_formatToPercent as formatToPercent,
+    formatter_trimJsonStr as trimJsonStr,
   };
 }
 

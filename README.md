@@ -9,7 +9,7 @@
 - Simple API, support modular import
 - No dependencies
 - Unit function test coverage rate and line output coverage rate are both 100%
-- refactor project by typescript, ts project can use those tools directly
+- Refactor project by typescript, ts project can use those tools directly
 
 ## Install
 
