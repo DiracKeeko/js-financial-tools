@@ -93,6 +93,13 @@ function formatToPercent(
   return percentage(num, precision);
 }
 
+function trimJsonStr(jsonStr: string): string {
+  return jsonStr
+    .replace(/\n/g, "")
+    .replace(/\r/g, "")
+    .replace(/\s|\xA0/g, "");
+}
+
 export {
   formatRank,
   formatLongText,
@@ -100,4 +107,5 @@ export {
   formatToMonetaryShape,
   formatToFloat,
   formatToPercent,
+  trimJsonStr,
 };

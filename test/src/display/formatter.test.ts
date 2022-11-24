@@ -7,6 +7,7 @@ const {
   formatToMonetaryShape,
   formatToFloat,
   formatToPercent,
+  trimJsonStr,
 } = formatter;
 
 describe("formatter test", () => {
@@ -105,6 +106,18 @@ describe("formatter test", () => {
     it("formatToPercent 03", () => {
       const res = formatToPercent(-2.123, "", 1, 10);
       expect(res === "-21.2%");
+    });
+  });
+
+  describe("trimJsonStr", () => {
+    it("trimJsonStr 01", () => {
+      const jsonStr = `{
+        "age": "1", 
+        "b": "2"
+      }`
+      const res = trimJsonStr(jsonStr);
+      const expectedRes = `{"age":"1","b":"2"}`
+      expect(res === expectedRes);
     });
   });
 });
