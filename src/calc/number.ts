@@ -26,4 +26,24 @@ function percentage(
   return `${((num as number) * 100).toFixed(accuracy as number)}%`;
 }
 
-export { isRealNumber, float, percentage };
+/**
+ * Implement rounding down to a specified number of decimal places
+ * 实现指定小数点位数的向下取值(不进位舍入)
+ * 
+ */
+function decimalFloor(num: number, decimalPrecision: number = 2): string {
+  const multiple = 10 ** decimalPrecision;
+  return float(Math.floor(num * multiple) / multiple, decimalPrecision);
+}
+
+function decimalRound(num: number, decimalPrecision: number = 2): string {
+  const multiple = 10 ** decimalPrecision;
+  return float(Math.round(num * multiple) / multiple, decimalPrecision);
+}
+
+function decimalCeil(num: number, decimalPrecision: number = 2): string {
+  const multiple = 10 ** decimalPrecision;
+  return float(Math.ceil(num * multiple) / multiple, decimalPrecision);
+}
+
+export { isRealNumber, float, percentage, decimalFloor, decimalRound, decimalCeil };
