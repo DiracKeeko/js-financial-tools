@@ -7,17 +7,17 @@ describe("fund test", () => {
     it("calcMax3Concentration 01", () => {
       const testCase = [undefined, undefined, undefined];
       const res = calcMax3Concentration(testCase);
-      expect(res === undefined);
+      expect(res).toBe(undefined);
     });
     it("calcMax3Concentration 02", () => {
       const testCase = [1, 1, 1];
       const res = calcMax3Concentration(testCase);
-      expect(res === 1);
+      expect(res).toBe(1);
     });
     it("calcMax3Concentration 03", () => {
       const testCase = [1, 1, 1, 1];
       const res = calcMax3Concentration(testCase);
-      expect(res === 0.75);
+      expect(res).toBe(0.75);
     });
   });
 });
