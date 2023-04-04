@@ -1,15 +1,29 @@
 declare function isRealNumber(num: any): boolean;
 declare function float(num: number | string | undefined | null, precision?: number | string, placeholder?: string): string;
 declare function percentage(num: number | string | undefined | null, precision?: number | string, placeholder?: string): string;
+/**
+ * Implement rounding down to a specified number of decimal places
+ * 实现指定小数点位数的向下取值(不进位舍入)
+ *
+ */
+declare function decimalFloor(num: number, decimalPrecision?: number): string;
+declare function decimalRound(num: number, decimalPrecision?: number): string;
+declare function decimalCeil(num: number, decimalPrecision?: number): string;
 
 declare const number_isRealNumber: typeof isRealNumber;
 declare const number_float: typeof float;
 declare const number_percentage: typeof percentage;
+declare const number_decimalFloor: typeof decimalFloor;
+declare const number_decimalRound: typeof decimalRound;
+declare const number_decimalCeil: typeof decimalCeil;
 declare namespace number {
   export {
     number_isRealNumber as isRealNumber,
     number_float as float,
     number_percentage as percentage,
+    number_decimalFloor as decimalFloor,
+    number_decimalRound as decimalRound,
+    number_decimalCeil as decimalCeil,
   };
 }
 

@@ -21,12 +21,32 @@
         }
         return `${(num * 100).toFixed(accuracy)}%`;
     }
+    /**
+     * Implement rounding down to a specified number of decimal places
+     * 实现指定小数点位数的向下取值(不进位舍入)
+     *
+     */
+    function decimalFloor(num, decimalPrecision = 2) {
+        const multiple = Math.pow(10, decimalPrecision);
+        return float(Math.floor(num * multiple) / multiple, decimalPrecision);
+    }
+    function decimalRound(num, decimalPrecision = 2) {
+        const multiple = Math.pow(10, decimalPrecision);
+        return float(Math.round(num * multiple) / multiple, decimalPrecision);
+    }
+    function decimalCeil(num, decimalPrecision = 2) {
+        const multiple = Math.pow(10, decimalPrecision);
+        return float(Math.ceil(num * multiple) / multiple, decimalPrecision);
+    }
 
     var number = /*#__PURE__*/Object.freeze({
         __proto__: null,
         isRealNumber: isRealNumber,
         float: float,
-        percentage: percentage
+        percentage: percentage,
+        decimalFloor: decimalFloor,
+        decimalRound: decimalRound,
+        decimalCeil: decimalCeil
     });
 
     function calcMax3Concentration(arr) {
