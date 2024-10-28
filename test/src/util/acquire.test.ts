@@ -13,6 +13,7 @@ const {
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
+  getWeekNumberInTheDateMonth,
 } = acquire;
 
 describe("acquire test", () => {
@@ -131,6 +132,31 @@ describe("acquire test", () => {
       const dateRange = ["2020-12-12", "2022-04-06"];
       const expectedRes = ["2021Q1", "2021Q2", "2021Q3", "2021Q4", "2022Q1"];
       expect(createQuarterArr(dateRange as DateStrRange)).toEqual(expectedRes);
+    });
+  });
+  
+  describe("getWeekNumberInTheDateMonth", () => {
+    it("getWeekNumberInTheDateMonth 01", () => {
+      const dateStr = "2024-06-03";
+      expect(getWeekNumberInTheDateMonth(dateStr)).toBe(2);
+    });
+    it("getWeekNumberInTheDateMonth 02", () => {
+      const dateStr = "2024-06-05";
+      expect(getWeekNumberInTheDateMonth(dateStr)).toBe(2);
+    });
+    it("getWeekNumberInTheDateMonth 03", () => {
+      const dateStr = "2024-06-10";
+      expect(getWeekNumberInTheDateMonth(dateStr)).toBe(3);
+    });
+    it("getWeekNumberInTheDateMonth 04", () => {
+      const dateStr = "2024-06-10";
+      const dateObj = new Date(dateStr);
+      expect(getWeekNumberInTheDateMonth(dateObj)).toBe(3);
+    });
+    it("getWeekNumberInTheDateMonth 05", () => {
+      const dateStr = "2024-06-10";
+      const dateTime = new Date(dateStr).getTime();
+      expect(getWeekNumberInTheDateMonth(dateTime)).toBe(3);
     });
   });
 });

@@ -158,6 +158,28 @@ function createQuarterArr(dateRange: DateStrRange): string[] {
   return quarterArr;
 }
 
+/**
+ * Get the incoming date's week number within the date's month;
+ */
+/* 
+  dayNum:
+    0 (Sunday)
+    1 (Monday)
+    2 (Tuesday)
+    3 (Wednesday)
+    4 (Thursday)
+    5 (Friday)
+    6 (Saturday)
+*/
+function getWeekNumberInTheDateMonth(
+  incomingDate: Date | string | number
+): number {
+  const curDate = new Date(incomingDate);
+  const dayNum: number = curDate.getDay();
+  const dateNum: number = curDate.getDate();
+  return Math.ceil((dateNum + 6 - dayNum) / 7);
+}
+
 export {
   getIntPartLength,
   getMonetaryUnit,
@@ -167,4 +189,5 @@ export {
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
+  getWeekNumberInTheDateMonth,
 };
