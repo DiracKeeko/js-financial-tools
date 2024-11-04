@@ -180,6 +180,20 @@ function getWeekNumberInTheDateMonth(
   return Math.ceil((dateNum + 6 - dayNum) / 7);
 }
 
+function calcStringCharLength(str: string): number {
+  let len = 0;
+  const lengthOneReg = /[A-Za-z0-9\s]/;
+  for (let i = 0; i < str.length; i++) {
+    const el = str[i];
+    if (lengthOneReg.test(el)) {
+      len += 1;
+    } else {
+      len += 2;
+    }
+  }
+  return len;
+}
+
 export {
   getIntPartLength,
   getMonetaryUnit,
@@ -190,4 +204,5 @@ export {
   checkYearInRange,
   createQuarterArr,
   getWeekNumberInTheDateMonth,
+  calcStringCharLength,
 };
