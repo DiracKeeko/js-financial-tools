@@ -180,7 +180,14 @@ function getWeekNumberInTheDateMonth(
   return Math.ceil((dateNum + 6 - dayNum) / 7);
 }
 
-function calcStringCharLength(str: string): number {
+/**
+ * Calculate the string length for some strings containing East Asian characters.
+ * (such as Chinese characters and Japanese characters)
+ *
+ * The length of letters, numbers, and whitespace characters is 1, and the length of other characters is 2.
+ *
+ */
+function calcAsianStringLength(str: string): number {
   let len = 0;
   const lengthOneReg = /[A-Za-z0-9\s]/;
   for (let i = 0; i < str.length; i++) {
@@ -204,5 +211,5 @@ export {
   checkYearInRange,
   createQuarterArr,
   getWeekNumberInTheDateMonth,
-  calcStringCharLength,
+  calcAsianStringLength,
 };

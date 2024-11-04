@@ -14,6 +14,7 @@ const {
   checkYearInRange,
   createQuarterArr,
   getWeekNumberInTheDateMonth,
+  calcAsianStringLength,
 } = acquire;
 
 describe("acquire test", () => {
@@ -134,7 +135,7 @@ describe("acquire test", () => {
       expect(createQuarterArr(dateRange as DateStrRange)).toEqual(expectedRes);
     });
   });
-  
+
   describe("getWeekNumberInTheDateMonth", () => {
     it("getWeekNumberInTheDateMonth 01", () => {
       const dateStr = "2024-06-03";
@@ -157,6 +158,21 @@ describe("acquire test", () => {
       const dateStr = "2024-06-10";
       const dateTime = new Date(dateStr).getTime();
       expect(getWeekNumberInTheDateMonth(dateTime)).toBe(3);
+    });
+  });
+
+  describe("calcAsianStringLength", () => {
+    it("calcAsianStringLength 01", () => {
+      const strWithAsianChar = "上海市民";
+      expect(calcAsianStringLength(strWithAsianChar)).toBe(8);
+    });
+    it("calcAsianStringLength 02", () => {
+      const str = "123abc";
+      expect(calcAsianStringLength(str)).toBe(6);
+    });
+    it("calcAsianStringLength 03", () => {
+      const str = "上海市123abc";
+      expect(calcAsianStringLength(str)).toBe(12);
     });
   });
 });
