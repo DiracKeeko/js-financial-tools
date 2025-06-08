@@ -51,10 +51,14 @@ describe("formatter test", () => {
       expect(res).toBe("-21.00亿");
     });
     it("formatWithUnit 04", () => {
+      const res = formatWithUnit(3.33 * 10 ** 13, "万亿");
+      expect(res).toBe("33.30万亿");
+    });
+    it("formatWithUnit 05", () => {
       const res = formatWithUnit(undefined);
       expect(res).toBe("--");
     });
-    it("formatWithUnit 05", () => {
+    it("formatWithUnit 06", () => {
       const res = formatWithUnit(100);
       expect(res).toBe("100");
     });
@@ -74,6 +78,10 @@ describe("formatter test", () => {
       expect(res).toBe("-21.00亿");
     });
     it("formatToMonetaryShape 04", () => {
+      const res = formatToMonetaryShape(3.33 * 10 ** 13);
+      expect(res).toBe("33.30万亿");
+    });
+    it("formatToMonetaryShape 05", () => {
       const res = formatToMonetaryShape(0);
       expect(res).toBe("0.00");
     });
