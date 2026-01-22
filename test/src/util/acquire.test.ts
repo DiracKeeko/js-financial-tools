@@ -1,6 +1,7 @@
 import { acquire } from "@/util";
 import { getDateTime } from "@/util/constant";
 
+type TimeRange = [string, string] | readonly [string, string];
 type DateRange = [number, number];
 type DateStrRange = [string, string] | [];
 
@@ -10,6 +11,7 @@ const {
   getMaxDate,
   getMinDate,
   getTimeRangeIntersection,
+  checkCurrentTimeInRange,
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
@@ -85,6 +87,21 @@ describe("acquire test", () => {
         dateRange2 as DateRange
       );
       expect(res).toEqual(dateRangeIntersection);
+    });
+  });
+
+  describe("checkCurrentTimeInRange", () => {
+    it("checkCurrentTimeInRange 01", () => {
+      const timeRange: TimeRange = ["09:00", "15:00"];
+      expect(checkCurrentTimeInRange(timeRange)).toBe(true);
+    });
+    it("checkCurrentTimeInRange 02", () => {
+      const timeRange: TimeRange = ["08:30", "15:30"] as const;
+      expect(checkCurrentTimeInRange(timeRange)).toBe(true);
+    });
+    it("checkCurrentTimeInRange 03", () => {
+      const timeRange: TimeRange = ["23:55", "23:59"] as const;
+      expect(checkCurrentTimeInRange(timeRange)).toBe(false);
     });
   });
 

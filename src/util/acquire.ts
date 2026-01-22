@@ -86,7 +86,7 @@ const getMinutesFromTimeStr = (timeStr: string): number => {
  * case1: ["09:00", "17:00"]
  * case2: ["13:00", "15:30"]
  */
-const checkTimeInRange = (
+const checkCurrentTimeInRange = (
   timeRange: [string, string] | readonly [string, string]
 ): boolean => {
   const now = new Date();
@@ -237,7 +237,7 @@ export {
   getMaxDate,
   getMinDate,
   getTimeRangeIntersection,
-  checkTimeInRange,
+  checkCurrentTimeInRange,
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
