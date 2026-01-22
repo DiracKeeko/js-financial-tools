@@ -69,6 +69,36 @@ function getTimeRangeIntersection(
 }
 
 /**
+ * Helper function: 
+ *  Converts a time string in 'HH:mm' format to the total number of minutes for the current day.
+ * @param timeStr
+ * case1: "09:30"
+ */
+const getMinutesFromTimeStr = (timeStr: string): number => {
+  const [hour, minute] = timeStr.split(":").map(Number);
+  return hour * 60 + minute;
+};
+
+/**
+ * Determine whether the current time falls within the specified interval
+ *  get result of (startTime <= currentTime && currentTime < endTime)
+ * @param {[string, string]} timeRange
+ * case1: ["09:00", "17:00"]
+ * case2: ["13:00", "15:30"]
+ */
+const checkTimeInRange = (
+  timeRange: [string, string] | readonly [string, string]
+): boolean => {
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  const startMinutes = getMinutesFromTimeStr(timeRange[0]);
+  const endMinutes = getMinutesFromTimeStr(timeRange[1]);
+
+  return startMinutes <= currentMinutes && currentMinutes < endMinutes;
+};
+
+/**
  *
  * @param {String|Number} year
  * case1: "2020"
@@ -207,6 +237,7 @@ export {
   getMaxDate,
   getMinDate,
   getTimeRangeIntersection,
+  checkTimeInRange,
   checkQuarterInRange,
   checkYearInRange,
   createQuarterArr,
