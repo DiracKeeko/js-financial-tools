@@ -29,6 +29,9 @@ function formatWithUnit(val, unitStr = "", precision = 2) {
         case "亿":
             numStr = float(val / Math.pow(10, 8), precision);
             break;
+        case "万亿":
+            numStr = float(val / Math.pow(10, 12), precision);
+            break;
         default:
             numStr = String(val);
             break;
@@ -40,6 +43,10 @@ function formatToMonetaryShape(val, precision = 2) {
         return "--";
     }
     const intPartLength = getIntPartLength(val);
+    if (intPartLength > 12) {
+        const num = val / Math.pow(10, 12);
+        return `${float(num, precision)}万亿`;
+    }
     if (intPartLength > 8) {
         const num = val / Math.pow(10, 8);
         return `${float(num, precision)}亿`;

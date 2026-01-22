@@ -53,6 +53,30 @@ function getTimeRangeIntersection(range1, range2) {
     return [];
 }
 /**
+ * Helper function:
+ *  Converts a time string in 'HH:mm' format to the total number of minutes for the current day.
+ * @param timeStr
+ * case1: "09:30"
+ */
+const getMinutesFromTimeStr = (timeStr) => {
+    const [hour, minute] = timeStr.split(":").map(Number);
+    return hour * 60 + minute;
+};
+/**
+ * Determine whether the current time falls within the specified interval
+ *  get result of (startTime <= currentTime && currentTime < endTime)
+ * @param {[string, string]} timeRange
+ * case1: ["09:00", "17:00"]
+ * case2: ["13:00", "15:30"]
+ */
+const checkCurrentTimeInRange = (timeRange) => {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const startMinutes = getMinutesFromTimeStr(timeRange[0]);
+    const endMinutes = getMinutesFromTimeStr(timeRange[1]);
+    return startMinutes <= currentMinutes && currentMinutes < endMinutes;
+};
+/**
  *
  * @param {String|Number} year
  * case1: "2020"
@@ -128,5 +152,45 @@ function createQuarterArr(dateRange) {
     }
     return quarterArr;
 }
+/**
+ * Get the incoming date's week number within the date's month;
+ */
+/*
+  dayNum:
+    0 (Sunday)
+    1 (Monday)
+    2 (Tuesday)
+    3 (Wednesday)
+    4 (Thursday)
+    5 (Friday)
+    6 (Saturday)
+*/
+function getWeekNumberInTheDateMonth(incomingDate) {
+    const curDate = new Date(incomingDate);
+    const dayNum = curDate.getDay();
+    const dateNum = curDate.getDate();
+    return Math.ceil((dateNum + 6 - dayNum) / 7);
+}
+/**
+ * Calculate the string length for some strings containing East Asian characters.
+ * (such as Chinese characters and Japanese characters)
+ *
+ * The length of letters, numbers, and whitespace characters is 1, and the length of other characters is 2.
+ *
+ */
+function calcAsianStringLength(str) {
+    let len = 0;
+    const lengthOneReg = /[A-Za-z0-9\s]/;
+    for (let i = 0; i < str.length; i++) {
+        const el = str[i];
+        if (lengthOneReg.test(el)) {
+            len += 1;
+        }
+        else {
+            len += 2;
+        }
+    }
+    return len;
+}
 
-export { checkQuarterInRange, checkYearInRange, createQuarterArr, getIntPartLength, getMaxDate, getMinDate, getMonetaryUnit, getTimeRangeIntersection };
+export { calcAsianStringLength, checkCurrentTimeInRange, checkQuarterInRange, checkYearInRange, createQuarterArr, getIntPartLength, getMaxDate, getMinDate, getMonetaryUnit, getTimeRangeIntersection, getWeekNumberInTheDateMonth };

@@ -84,6 +84,20 @@ declare function getMinDate(dateArr: string[]): string;
  */
 declare function getTimeRangeIntersection(range1: DateRange, range2: DateRange): number[];
 /**
+ * Determine whether the current time falls within the specified interval
+ *  get result of (startTime <= currentTime && currentTime < endTime)
+ * @param {[string, string]} timeRange
+ * case1: ["09:00", "17:00"]
+ * case2: ["13:00", "15:30"]
+ */
+declare const checkCurrentTimeInRange: (timeRange: [
+    string,
+    string
+] | readonly [
+    string,
+    string
+]) => boolean;
+/**
  *
  * @param {String|Number} year
  * case1: "2020"
@@ -103,15 +117,30 @@ declare function checkYearInRange(year: string | number, dateRange: DateStrRange
  * @returns ["2019Q1", "2019Q2", "2019Q3", "2019Q4", "2020Q1"]
  */
 declare function createQuarterArr(dateRange: DateStrRange): string[];
+/**
+ * Get the incoming date's week number within the date's month;
+ */
+declare function getWeekNumberInTheDateMonth(incomingDate: Date | string | number): number;
+/**
+ * Calculate the string length for some strings containing East Asian characters.
+ * (such as Chinese characters and Japanese characters)
+ *
+ * The length of letters, numbers, and whitespace characters is 1, and the length of other characters is 2.
+ *
+ */
+declare function calcAsianStringLength(str: string): number;
 
 declare const acquire_getIntPartLength: typeof getIntPartLength;
 declare const acquire_getMonetaryUnit: typeof getMonetaryUnit;
 declare const acquire_getMaxDate: typeof getMaxDate;
 declare const acquire_getMinDate: typeof getMinDate;
 declare const acquire_getTimeRangeIntersection: typeof getTimeRangeIntersection;
+declare const acquire_checkCurrentTimeInRange: typeof checkCurrentTimeInRange;
 declare const acquire_checkQuarterInRange: typeof checkQuarterInRange;
 declare const acquire_checkYearInRange: typeof checkYearInRange;
 declare const acquire_createQuarterArr: typeof createQuarterArr;
+declare const acquire_getWeekNumberInTheDateMonth: typeof getWeekNumberInTheDateMonth;
+declare const acquire_calcAsianStringLength: typeof calcAsianStringLength;
 declare namespace acquire {
   export {
     acquire_getIntPartLength as getIntPartLength,
@@ -119,9 +148,12 @@ declare namespace acquire {
     acquire_getMaxDate as getMaxDate,
     acquire_getMinDate as getMinDate,
     acquire_getTimeRangeIntersection as getTimeRangeIntersection,
+    acquire_checkCurrentTimeInRange as checkCurrentTimeInRange,
     acquire_checkQuarterInRange as checkQuarterInRange,
     acquire_checkYearInRange as checkYearInRange,
     acquire_createQuarterArr as createQuarterArr,
+    acquire_getWeekNumberInTheDateMonth as getWeekNumberInTheDateMonth,
+    acquire_calcAsianStringLength as calcAsianStringLength,
   };
 }
 

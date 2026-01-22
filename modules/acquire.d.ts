@@ -1,7 +1,7 @@
 declare type DateRange = [number, number];
 declare type DateStrRange = [string, string] | [];
 declare function getIntPartLength(num: number): number;
-declare function getMonetaryUnit(val: number | string | undefined): "亿" | "万" | "";
+declare function getMonetaryUnit(val: number | string | undefined): "" | "万" | "亿";
 /**
  *
  * @param {Array} dateArr
@@ -18,6 +18,20 @@ declare function getMinDate(dateArr: string[]): string;
  * @returns [startTimestamp, endTimeStamp] || []
  */
 declare function getTimeRangeIntersection(range1: DateRange, range2: DateRange): number[];
+/**
+ * Determine whether the current time falls within the specified interval
+ *  get result of (startTime <= currentTime && currentTime < endTime)
+ * @param {[string, string]} timeRange
+ * case1: ["09:00", "17:00"]
+ * case2: ["13:00", "15:30"]
+ */
+declare const checkCurrentTimeInRange: (timeRange: [
+    string,
+    string
+] | readonly [
+    string,
+    string
+]) => boolean;
 /**
  *
  * @param {String|Number} year
@@ -38,5 +52,17 @@ declare function checkYearInRange(year: string | number, dateRange: DateStrRange
  * @returns ["2019Q1", "2019Q2", "2019Q3", "2019Q4", "2020Q1"]
  */
 declare function createQuarterArr(dateRange: DateStrRange): string[];
+/**
+ * Get the incoming date's week number within the date's month;
+ */
+declare function getWeekNumberInTheDateMonth(incomingDate: Date | string | number): number;
+/**
+ * Calculate the string length for some strings containing East Asian characters.
+ * (such as Chinese characters and Japanese characters)
+ *
+ * The length of letters, numbers, and whitespace characters is 1, and the length of other characters is 2.
+ *
+ */
+declare function calcAsianStringLength(str: string): number;
 
-export { checkQuarterInRange, checkYearInRange, createQuarterArr, getIntPartLength, getMaxDate, getMinDate, getMonetaryUnit, getTimeRangeIntersection };
+export { calcAsianStringLength, checkCurrentTimeInRange, checkQuarterInRange, checkYearInRange, createQuarterArr, getIntPartLength, getMaxDate, getMinDate, getMonetaryUnit, getTimeRangeIntersection, getWeekNumberInTheDateMonth };
